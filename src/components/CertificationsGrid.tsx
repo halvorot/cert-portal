@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import CertificationCard from "./CertificationCard";
 import H2 from "./H2";
-import { Suspense } from "react";
 import { CertificationType } from "@/js/types";
 
 export default async function CertificationGrid() {
