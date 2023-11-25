@@ -1,16 +1,17 @@
+import CertificationGrid from "@/components/CertificationsGrid";
 import H1 from "@/components/H1";
-import PrimaryButton from "@/components/PrimaryButton";
+import H2 from "@/components/H2";
+import { Suspense } from "react";
 
 export default async function Index() {
   return (
-    <div className="flex w-full flex-1 flex-col items-center gap-20">
-      <H1 preText="Welcome to " gradientText="CertBase" />
-      <div className="flex justify-center">
-        <PrimaryButton
-          text="View Certifications"
-          href="/certifications"
-          ariaLabel="View Certifications"
-        />
+    <div className="">
+      <H1 preText="Welcome to" gradientText="CertPortal" />
+      <div className="flex flex-col justify-center">
+        <H2 text="Browse certifications to find the best one for you" />
+        <Suspense fallback="Loading certifications...">
+          <CertificationGrid />
+        </Suspense>
       </div>
     </div>
   );

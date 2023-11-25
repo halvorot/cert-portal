@@ -7,7 +7,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "CertBase",
+  title: "CertPortal",
   description: "The best way to discover easy and useful certifications",
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-dark text-light">
-        <main className="m-auto mb-20 min-h-screen max-w-screen-md p-4">
+        <main className="m-auto mb-20 min-h-screen max-w-screen-xl p-4">
           {children}
         </main>
       </body>

@@ -3,13 +3,20 @@ import { cookies } from "next/headers";
 import CertificationCard from "./CertificationCard";
 import H2 from "./H2";
 import { Suspense } from "react";
+import { CertificationType } from "@/js/types";
 
 export default async function CertificationGrid() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data: certifications, error } = await supabase
-    .from("certifications")
-    .select();
+  const { data: certifications, error } = await supabase.from("certifications")
+    .select(`
+      id,
+      name,
+      description,
+      exam_code,
+      badge_image_url,
+      ratings ( id, comment, overall, difficulty, usefulness, would_take_again )
+    `);
 
   return (
     <>
@@ -19,26 +26,31 @@ export default async function CertificationGrid() {
           <p>{error.message}</p>
         </>
       ) : (
-        <ul role="list" className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2">
-          {certifications
-            .sort((a, b) => {
-              const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-              const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((row) => (
-              <li key={row.id}>
-                <CertificationCard certification={row} />
-              </li>
-            ))}
+        <ul
+          role="list"
+          className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {sortByNameCaseInsensitive(certifications).map((row) => (
+            <li key={row.id}>
+              <CertificationCard certification={row} />
+            </li>
+          ))}
         </ul>
       )}
     </>
   );
+}
+
+function sortByNameCaseInsensitive(certifications: CertificationType[]) {
+  return certifications.sort((a, b) => {
+    const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
 }
