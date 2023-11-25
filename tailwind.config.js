@@ -19,7 +19,7 @@ export default {
       },
       dark: {
         DEFAULT: "#0a0a0a", // neutral-950
-        accent: "#171717", // neutral-900
+        accent: "#262626", // neutral-800
         blue: "#111724",
       },
       light: {

@@ -2,22 +2,18 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import React from "react";
 import H1 from "@/components/H1";
-import {
-  BsArrowLeft,
-  BsArrowRepeat,
-  BsChatRightQuote,
-} from "react-icons/bs";
+import { BsArrowLeft, BsArrowRepeat, BsChatRightQuote } from "react-icons/bs";
 import H2 from "@/components/H2";
 import { getWouldTakeAgainPercentage } from "@/js/utils";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import RatingsSummary from "@/components/RatingsSummary";
 
 export default async function Page({
   params,
 }: {
   params: { exam_code: string };
 }) {
-
   const { exam_code } = params;
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
@@ -77,8 +73,13 @@ export default async function Page({
               {certification.ratings.length}
             </div>
           </div>
+          <div className="flex justify-center">
+            <RatingsSummary ratings={certification.ratings || []} />
+          </div>
           {certification.description && (
-            <Markdown className="markdown">{certification.description}</Markdown>
+            <Markdown className="markdown">
+              {certification.description}
+            </Markdown>
           )}
         </>
       )}
