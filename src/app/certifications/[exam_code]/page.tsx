@@ -73,7 +73,7 @@ export default async function Page({
               {certification.ratings.length}
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-20">
             <RatingsSummary ratings={certification.ratings || []} />
           </div>
           {certification.description && (

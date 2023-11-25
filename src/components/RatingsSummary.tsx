@@ -10,7 +10,7 @@ export default function RatingsSummary({ ratings }: { ratings: RatingType[] }) {
     ratings.reduce((total, next) => total + next.overall, 0) / ratings.length;
 
   return (
-    <div className=" relative flex gap-4 w-96 flex-col justify-between rounded-md bg-dark-accent p-4 pb-5 text-center">
+    <div className="relative flex gap-4 w-96 flex-col justify-between rounded-md bg-dark-accent p-4 pb-5 text-center">
       {ratings.length > 0 ? (
         <>
           <div className="flex w-full gap-2">
