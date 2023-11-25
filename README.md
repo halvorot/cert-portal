@@ -1,4 +1,4 @@
-# CertBase
+# CertPortal
 
 A web app containing a database of IT related certifications.
 
