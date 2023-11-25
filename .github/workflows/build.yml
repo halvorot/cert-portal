@@ -1,4 +1,4 @@
-name: Astro build
+name: Build
 
 on:
   pull_request:
