@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import React from "react";
-import { marked } from "marked";
 import H1 from "@/components/H1";
 import {
   BsArrowLeft,
@@ -11,6 +10,7 @@ import {
 import H2 from "@/components/H2";
 import { getWouldTakeAgainPercentage } from "@/js/utils";
 import Link from "next/link";
+import Markdown from "react-markdown";
 
 export default async function Page({
   params,
@@ -78,12 +78,7 @@ export default async function Page({
             </div>
           </div>
           {certification.description && (
-            <article
-              className="markdown"
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(certification.description),
-              }}
-            />
+            <Markdown className="markdown">{certification.description}</Markdown>
           )}
         </>
       )}
