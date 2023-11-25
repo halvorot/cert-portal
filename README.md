@@ -2,4 +2,4 @@
 
 A web app containing a database of IT related certifications.
 
-### See it live: [certbase.netlify.app](https://certbase.netlify.app/)
+### See it live: [certportal.netlify.app](https://certportal.netlify.app/)
