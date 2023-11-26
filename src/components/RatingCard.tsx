@@ -14,7 +14,7 @@ import {
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   return (
-    <div className="relative flex w-96 flex-col justify-between gap-4 rounded-md bg-dark-accent p-4 pb-5">
+    <div className="relative flex w-[clamp(20rem, 24rem, 25rem)] flex-col justify-between gap-4 rounded-md bg-dark-accent p-4 pb-5">
       <RatingsBar
         label="Overall score"
         score={rating.overall}
