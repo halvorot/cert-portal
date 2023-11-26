@@ -15,7 +15,9 @@ export default async function CertificationGrid() {
       exam_code,
       badge_image_url,
       ratings ( id, comment, overall, difficulty, usefulness, would_take_again )
-    `);
+    `,
+    )
+    .order("name", { ascending: true });
 
   return (
     <>
@@ -29,7 +31,7 @@ export default async function CertificationGrid() {
           role="list"
           className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {sortByNameCaseInsensitive(certifications).map((row) => (
+          {certifications.map((row) => (
             <li key={row.id}>
               <CertificationCard certification={row} />
             </li>
@@ -38,18 +40,4 @@ export default async function CertificationGrid() {
       )}
     </>
   );
-}
-
-function sortByNameCaseInsensitive(certifications: CertificationType[]) {
-  return certifications.sort((a, b) => {
-    const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-    const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    return 0;
-  });
 }

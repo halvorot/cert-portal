@@ -1,18 +1,20 @@
-import type { CertificationType } from "./types";
+import type { CertificationType, RatingType } from "./types";
 
 export function getWouldTakeAgainPercentage(
-  certification: CertificationType,
+  ratings: RatingType[],
 ): number | null {
-  if (!certification.ratings || certification.ratings.length == 0) {
+  if (!ratings || ratings.length == 0) {
     return null;
   }
-  const wouldTakeAgainList = certification.ratings.map(
-    (rating) => rating.would_take_again,
-  );
+  const wouldTakeAgainList = ratings.map((rating) => rating.would_take_again);
 
   const percentThatWouldTakeAgain =
     (wouldTakeAgainList.filter((value) => value === true).length /
       wouldTakeAgainList.length) *
     100;
   return percentThatWouldTakeAgain;
+}
+
+export function getAverage(list: number[]): number {
+  return list.reduce((total, next) => total + next, 0) / list.length;
 }

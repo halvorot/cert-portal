@@ -26,6 +26,8 @@ export default {
         DEFAULT: "#e2e8f0", // slate-200
         accent: "#cbd5e1", // slate-300
       },
+      success: "#16a34a", // green-500
+      error: "#dc2626", // green-500
       transparent: "transparent",
       current: "currentColor",
     },

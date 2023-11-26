@@ -2,15 +2,21 @@ import { RatingType } from "@/js/types";
 import React from "react";
 import { BsChatRightQuote } from "react-icons/bs";
 import RatingsBar from "./RatingBar";
+import { getAverage, getWouldTakeAgainPercentage } from "@/js/utils";
+import { MAX_SCORE } from "@/js/constants";
 
-export default function RatingsSummary({ ratings }: { ratings: RatingType[] }) {
-  const MAX_SCORE = 5;
-
+export default function RatingsSummaryCard({
+  ratings,
+}: {
+  ratings: RatingType[];
+}) {
   const averageOverallScore =
     ratings.reduce((total, next) => total + next.overall, 0) / ratings.length;
 
+  const wouldTakeAgainPercentage = getWouldTakeAgainPercentage(ratings);
+
   return (
-    <div className="relative flex gap-4 w-96 flex-col justify-between rounded-md bg-dark-accent p-4 pb-5 text-center">
+    <div className="relative flex w-96 flex-col justify-between gap-4 rounded-md bg-dark-accent p-4 text-center">
       {ratings.length > 0 ? (
         <>
           <div className="flex w-full gap-2">
@@ -31,14 +37,24 @@ export default function RatingsSummary({ ratings }: { ratings: RatingType[] }) {
           </div>
           <RatingsBar
             label="Usefullness"
-            maxScore={5}
-            scores={ratings.map((rating) => rating.usefulness)}
+            score={getAverage(ratings.map((rating) => rating.usefulness))}
+            maxScore={MAX_SCORE}
           />
           <RatingsBar
             label="Difficulty"
-            maxScore={5}
-            scores={ratings.map((rating) => rating.difficulty)}
+            score={getAverage(ratings.map((rating) => rating.difficulty))}
+            maxScore={MAX_SCORE}
           />
+          <div
+            className={`mt-1 font-medium ${
+              wouldTakeAgainPercentage && wouldTakeAgainPercentage < 50
+                ? "text-error"
+                : "text-success"
+            }`}
+          >
+            {ratings.length > 0 &&
+              wouldTakeAgainPercentage + "% would take again!"}
+          </div>
         </>
       ) : (
         <span>No ratings yet</span>

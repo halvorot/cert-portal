@@ -2,12 +2,12 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import React from "react";
 import H1 from "@/components/H1";
-import { BsArrowLeft, BsArrowRepeat, BsChatRightQuote } from "react-icons/bs";
+import { BsArrowLeft,} from "react-icons/bs";
 import H2 from "@/components/H2";
-import { getWouldTakeAgainPercentage } from "@/js/utils";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import RatingsSummary from "@/components/RatingsSummary";
+import RatingsSummaryCard from "@/components/RatingsSummaryCard";
+import RatingsGrid from "@/components/RatingsGrid";
 
 export default async function Page({
   params,
@@ -59,27 +59,23 @@ export default async function Page({
             preText={certification.name.split(" ").slice(0, -1).join(" ")}
             gradientText={certification.name.split(" ").slice(-1)}
           />
-          <div className="mb-10 mt-2 flex items-center justify-center gap-5 text-light-accent">
-            <div>
-              {certification.ratings.length > 0 && (
-                <div className="flex items-center">
-                  <BsArrowRepeat className="mr-1 w-4" />
-                  {getWouldTakeAgainPercentage(certification) + "%"}
-                </div>
-              )}
-            </div>
-            <div className="font- flex items-center">
-              <BsChatRightQuote className="mr-2 w-4" />
-              {certification.ratings.length}
-            </div>
-          </div>
-          <div className="flex justify-center mb-20">
-            <RatingsSummary ratings={certification.ratings || []} />
+          
+          <div className="mb-20 flex justify-center">
+            <RatingsSummaryCard ratings={certification.ratings || []} />
           </div>
           {certification.description && (
-            <Markdown className="markdown">
-              {certification.description}
-            </Markdown>
+            <>
+              <H2 text="Description" />
+              <Markdown className="markdown mb-20">
+                {certification.description}
+              </Markdown>
+            </>
+          )}
+          {certification.ratings.length > 0 && (
+            <>
+              <H2 text="Ratings" />
+              <RatingsGrid ratings={certification.ratings} />
+            </>
           )}
         </>
       )}

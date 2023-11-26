@@ -33,10 +33,10 @@ export default function CertificationCard({
         </span>
         <div className="mt-2 flex items-center justify-end gap-5 text-light-accent">
           <div>
-            {(certification.ratings?.length || 0) > 0 && (
+            {(certification.ratings && certification.ratings.length > 0) && (
               <div className="flex items-center">
                 <BsArrowRepeat className="mr-1 w-4" />
-                {getWouldTakeAgainPercentage(certification) + "%"}
+                {getWouldTakeAgainPercentage(certification.ratings) + "%"}
               </div>
             )}
           </div>
