@@ -24,10 +24,10 @@ export default function RatingsSummaryCard({
               {averageOverallScore.toFixed(1)}
             </span>
             <div className="relative flex w-full items-center">
-              <span className="absolute left-0 z-10 h-2 w-full rounded-full bg-light-accent" />
+              <span className="absolute left-0 h-2 w-full rounded-full bg-light-accent" />
               <span
                 style={{ width: `${(averageOverallScore / MAX_SCORE) * 100}%` }}
-                className="absolute left-0 z-20 h-2 rounded-full bg-primary"
+                className="absolute left-0 h-2 rounded-full bg-primary"
               />
             </div>
             <div className="flex items-center">
@@ -53,7 +53,7 @@ export default function RatingsSummaryCard({
             }`}
           >
             {ratings.length > 0 &&
-              wouldTakeAgainPercentage + "% would take again!"}
+              wouldTakeAgainPercentage?.toFixed(0) + "% would take again!"}
           </div>
         </>
       ) : (

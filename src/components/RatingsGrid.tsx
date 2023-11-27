@@ -1,6 +1,5 @@
-import CertificationCard from "./CertificationCard";
-import H2 from "./H2";
-import { CertificationType, RatingType } from "@/js/types";
+
+import { RatingType } from "@/js/types";
 import RatingCard from "./RatingCard";
 import React from "react";
 

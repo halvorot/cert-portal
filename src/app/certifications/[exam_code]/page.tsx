@@ -9,6 +9,8 @@ import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import RatingsGrid from "@/components/RatingsGrid";
 import AddRatingModal from "@/components/AddRatingModal";
 
+export const revalidate = 0;
+
 export default async function Page({
   params,
 }: {
@@ -54,9 +56,9 @@ export default async function Page({
             gradientText={certification.name.split(" ").slice(-1)}
           />
 
-          <div className="mb-20 flex flex-col items-center justify-center gap-5">
+          <div className="mb-10 flex flex-col items-center justify-center gap-5">
             <RatingsSummaryCard ratings={certification.ratings || []} />
-            <AddRatingModal />
+            <AddRatingModal certification_id={certification.id} />
           </div>
           {certification.description && (
             <>
