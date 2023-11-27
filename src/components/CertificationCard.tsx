@@ -24,7 +24,7 @@ export default function CertificationCard({
               className="mr-2 aspect-square w-20 rounded-full"
             />
           )}
-          <div>
+          <div className="text-left">
             <h3 className="text-md text-light-accent">
               {certification.exam_code}
             </h3>
