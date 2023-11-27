@@ -3,7 +3,6 @@ import { MAX_SCORE } from "@/js/constants";
 import { RatingType } from "@/js/types";
 import { createClient } from "@/utils/supabase/client";
 import { PostgrestError, User } from "@supabase/supabase-js";
-import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BsPlusCircle, BsX } from "react-icons/bs";
 import Modal from "react-modal";
@@ -168,7 +167,7 @@ export default function AddRatingModal({
         ) : error ? (
           <p>An error occurred trying to add rating: {error.message}</p>
         ) : (
-          <p>You have to be signed inn to add a rating</p>
+          <p>You have to be logged in to add a rating</p>
         )}
       </Modal>
     </div>
