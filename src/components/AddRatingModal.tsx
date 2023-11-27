@@ -7,32 +7,7 @@ import React, { useEffect, useState } from "react";
 import { BsPlusCircle, BsX } from "react-icons/bs";
 import Modal from "react-modal";
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(200,200,200, 0.3)",
-  },
-  content: {
-    marginLeft: "clamp(5px, 5%, 100px)",
-    marginRight: "clamp(5px, 5%, 100px)",
-    marginTop: "clamp(5px,5%,20px)",
-    marginBottom: "clamp(5px,5%,20px)",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "1px solid #262626",
-    background: "#0a0a0a",
-    overflow: "auto",
-    WebkitOverflowScrolling: "touch",
-    borderRadius: "0.5rem",
-    padding: "20px",
-  },
-};
-
-Modal.setAppElement('#main');
+Modal.setAppElement("#main");
 
 export default function AddRatingModal({
   certification_id,
@@ -101,7 +76,30 @@ export default function AddRatingModal({
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
-        style={customStyles}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(200,200,200, 0.3)",
+          },
+          content: {
+            marginLeft: "clamp(5px, 5%, 100px)",
+            marginRight: "clamp(5px, 5%, 100px)",
+            marginTop: "clamp(5px,5%,20px)",
+            marginBottom: "clamp(5px,5%,20px)",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            border: "1px solid #262626",
+            background: "#0a0a0a",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+            borderRadius: "0.5rem",
+            padding: "20px",
+          },
+        }}
       >
         <button onClick={closeModal} className="absolute right-5 top-5">
           <BsX className="h-8 w-8" />
