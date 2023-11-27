@@ -19,7 +19,7 @@ export default function AddRatingModal() {
 
   return (
     <div>
-      <button onClick={openModal} className="flex flex-col items-center text-sm gap-1">
+      <button onClick={openModal} className="flex flex-col items-center text-sm gap-1 text-light bg-primary rounded-md px-4 py-2">
         <BsPlusCircle className="h-8 w-8" />
         Add Rating
       </button>
