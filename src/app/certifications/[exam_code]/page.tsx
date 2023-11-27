@@ -8,6 +8,8 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import RatingsGrid from "@/components/RatingsGrid";
+import BackButton from "@/components/BackButton";
+import AuthButton from "@/components/AuthButton";
 
 export default async function Page({
   params,
@@ -46,13 +48,8 @@ export default async function Page({
   }
   return (
     <>
-      <Link
-        href="/"
-        className="group absolute left-8 top-8 flex items-center rounded-md bg-dark-accent px-4 py-2 text-sm text-light no-underline hover:bg-light-accent/20"
-      >
-        <BsArrowLeft className="w-4" />
-        Back
-      </Link>
+      <BackButton />
+      <AuthButton />
       {certification && (
         <>
           <H1
