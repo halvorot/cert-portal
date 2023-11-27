@@ -36,7 +36,7 @@ export default function CertificationCard({
             {(certification.ratings && certification.ratings.length > 0) && (
               <div className="flex items-center">
                 <BsArrowRepeat className="mr-1 w-4" />
-                {getWouldTakeAgainPercentage(certification.ratings) + "%"}
+                {getWouldTakeAgainPercentage(certification.ratings)?.toFixed(0) + "%"}
               </div>
             )}
           </div>

@@ -17,14 +17,14 @@ export default async function AuthButton() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     await supabase.auth.signOut();
-    return redirect("/login");
+    return redirect("/");
   };
 
   return user ? (
-    <div className="flex items-center flex-col sm:flex-row gap-4">
+    <div className="flex flex-col items-center gap-4 sm:flex-row">
       Hello, {user.email}!
       <form action={signOut}>
-        <button className="rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20">
+        <button className="rounded-md bg-dark-accent px-4 py-2 text-sm text-light no-underline hover:bg-light-accent/20">
           Logout
         </button>
       </form>
@@ -32,7 +32,7 @@ export default async function AuthButton() {
   ) : (
     <Link
       href="/login"
-      className="flex rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20"
+      className="flex rounded-md bg-dark-accent px-4 py-2 text-sm text-light no-underline hover:bg-light-accent/20"
     >
       Login
     </Link>

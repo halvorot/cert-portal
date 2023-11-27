@@ -1,15 +1,15 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import React from "react";
+import React, { useState } from "react";
 import H1 from "@/components/H1";
-import { BsArrowLeft,} from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 import H2 from "@/components/H2";
-import Link from "next/link";
 import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import RatingsGrid from "@/components/RatingsGrid";
-import HomeButton from "@/components/HomeButton";
-import AuthButton from "@/components/AuthButton";
+import AddRatingModal from "@/components/AddRatingModal";
+
+export const revalidate = 0;
 
 export default async function Page({
   params,
@@ -46,6 +46,7 @@ export default async function Page({
       <H2 text={`No certification with the exam code ${exam_code} found`} />
     );
   }
+
   return (
     <>
       {certification && (
@@ -54,9 +55,10 @@ export default async function Page({
             preText={certification.name.split(" ").slice(0, -1).join(" ")}
             gradientText={certification.name.split(" ").slice(-1)}
           />
-          
-          <div className="mb-20 flex justify-center">
+
+          <div className="mb-10 flex flex-col items-center justify-center gap-5">
             <RatingsSummaryCard ratings={certification.ratings || []} />
+            <AddRatingModal certification_id={certification.id} />
           </div>
           {certification.description && (
             <>
@@ -66,6 +68,7 @@ export default async function Page({
               </Markdown>
             </>
           )}
+
           {certification.ratings.length > 0 && (
             <>
               <H2 text="Ratings" />

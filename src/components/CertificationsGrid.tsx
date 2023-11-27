@@ -2,7 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import CertificationCard from "./CertificationCard";
 import H2 from "./H2";
-import { CertificationType } from "@/js/types";
+
+export const revalidate = 0;
 
 export default async function CertificationGrid() {
   const cookieStore = cookies();

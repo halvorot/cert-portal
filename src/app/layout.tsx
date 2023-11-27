@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-dark text-light">
         <Nav />
-        <main className="m-auto mb-20 min-h-screen max-w-screen-xl p-4">
+        <main id="main" className="m-auto mb-20 min-h-screen max-w-screen-xl p-4">
           {children}
         </main>
       </body>
