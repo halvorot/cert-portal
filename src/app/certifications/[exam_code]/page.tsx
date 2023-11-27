@@ -8,7 +8,7 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import RatingsGrid from "@/components/RatingsGrid";
-import BackButton from "@/components/BackButton";
+import HomeButton from "@/components/HomeButton";
 import AuthButton from "@/components/AuthButton";
 
 export default async function Page({
@@ -48,8 +48,6 @@ export default async function Page({
   }
   return (
     <>
-      <BackButton />
-      <AuthButton />
       {certification && (
         <>
           <H1

@@ -1,6 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import AuthButton from "@/components/AuthButton";
+import Nav from "@/components/Nav";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-dark text-light">
+        <Nav />
         <main className="m-auto mb-20 min-h-screen max-w-screen-xl p-4">
           {children}
         </main>

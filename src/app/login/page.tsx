@@ -2,7 +2,7 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import BackButton from "@/components/BackButton";
+import HomeButton from "@/components/HomeButton";
 
 export default function Login({
   searchParams,
@@ -58,7 +58,6 @@ export default function Login({
   return (
     <div className="flex w-full items-center justify-center">
       <div className="px-8 sm:max-w-md">
-        <BackButton />
         <form
           className="flex w-full flex-1 flex-col justify-center gap-2 text-light"
           action={signIn}

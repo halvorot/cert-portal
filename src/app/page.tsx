@@ -7,7 +7,6 @@ import { Suspense } from "react";
 export default async function Index() {
   return (
     <div className="">
-      <AuthButton />
       <H1 preText="Welcome to" gradientText="CertPortal" />
       <div className="flex flex-col justify-center text-center">
         <H2 text="Browse certifications to find the best one for you" />

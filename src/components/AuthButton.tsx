@@ -20,25 +20,21 @@ export default async function AuthButton() {
     return redirect("/login");
   };
 
-  return (
-    <div className="absolute right-8 top-8">
-      {user ? (
-        <div className="flex items-center gap-4">
-          Hello, {user.email}!
-          <form action={signOut}>
-            <button className="rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20">
-              Logout
-            </button>
-          </form>
-        </div>
-      ) : (
-        <Link
-          href="/login"
-          className="flex rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20"
-        >
-          Login
-        </Link>
-      )}
+  return user ? (
+    <div className="flex items-center flex-col sm:flex-row gap-4">
+      Hello, {user.email}!
+      <form action={signOut}>
+        <button className="rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20">
+          Logout
+        </button>
+      </form>
     </div>
+  ) : (
+    <Link
+      href="/login"
+      className="flex rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20"
+    >
+      Login
+    </Link>
   );
 }
