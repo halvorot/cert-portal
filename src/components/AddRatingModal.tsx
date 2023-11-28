@@ -167,16 +167,14 @@ export default function AddRatingModal({
         ) : error ? (
           <p>An error occurred trying to add rating: {error.message}</p>
         ) : (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col items-center gap-5">
             <p>You have to be logged in to add a rating</p>
-            <button>
-              <a
+            <Link
                 href="/login"
                 className="rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20"
               >
                 Login
-              </a>
-            </button>
+              </Link>
           </div>
         )}
       </Modal>
