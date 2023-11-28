@@ -6,6 +6,8 @@ import { PostgrestError, User } from "@supabase/supabase-js";
 import React, { useEffect, useState } from "react";
 import { BsPlusCircle, BsX } from "react-icons/bs";
 import Modal from "react-modal";
+import AuthButton from "./AuthButton";
+import Link from "next/link";
 
 Modal.setAppElement("#main");
 
@@ -165,7 +167,17 @@ export default function AddRatingModal({
         ) : error ? (
           <p>An error occurred trying to add rating: {error.message}</p>
         ) : (
-          <p>You have to be logged in to add a rating</p>
+          <div className="flex flex-col gap-5">
+            <p>You have to be logged in to add a rating</p>
+            <button>
+              <a
+                href="/login"
+                className="rounded-md bg-dark-accent px-4 py-2 text-light no-underline hover:bg-light-accent/20"
+              >
+                Login
+              </a>
+            </button>
+          </div>
         )}
       </Modal>
     </div>
