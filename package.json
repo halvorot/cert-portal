@@ -6,17 +6,17 @@
     "start": "next start"
   },
   "dependencies": {
-    "@supabase/ssr": "latest",
-    "@supabase/supabase-js": "latest",
+    "@supabase/ssr": "0.0.10",
+    "@supabase/supabase-js": "2.39.0",
     "autoprefixer": "10.4.16",
-    "geist": "^1.0.0",
-    "next": "latest",
+    "geist": "1.2.0",
+    "next": "14.0.3",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "4.12.0",
-    "react-markdown": "^9.0.1",
-    "react-modal": "^3.16.1",
+    "react-markdown": "9.0.1",
+    "react-modal": "3.16.1",
     "tailwindcss": "3.3.5",
     "typescript": "5.3.2"
   },
@@ -24,8 +24,8 @@
     "@types/node": "20.10.0",
     "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
-    "@types/react-modal": "^3.16.3",
-    "encoding": "^0.1.13",
+    "@types/react-modal": "3.16.3",
+    "encoding": "0.1.13",
     "prettier": "3.1.0",
     "prettier-plugin-tailwindcss": "0.5.7"
   }
