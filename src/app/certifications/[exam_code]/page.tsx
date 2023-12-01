@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import React, { useState } from "react";
 import H1 from "@/components/H1";
-import { BsPlusCircle } from "react-icons/bs";
 import H2 from "@/components/H2";
 import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
