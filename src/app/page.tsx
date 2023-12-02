@@ -1,4 +1,3 @@
-import AuthButton from "@/components/AuthButton";
 import CertificationGrid from "@/components/CertificationsGrid";
 import H1 from "@/components/H1";
 import H2 from "@/components/H2";

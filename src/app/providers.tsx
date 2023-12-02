@@ -1,7 +1,12 @@
 "use client";
 
 import { CacheProvider } from "@chakra-ui/next-js";
-import { ChakraProvider, ColorModeScript, ThemeConfig } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  ColorModeScript,
+  Theme,
+  ThemeConfig,
+} from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
@@ -15,9 +20,9 @@ const breakpoints = {
 };
 
 const config: ThemeConfig = {
-  initialColorMode: 'dark',
-  useSystemColorMode: true,
-}
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+};
 
 const theme = extendTheme({ breakpoints, config });
 
