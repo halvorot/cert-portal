@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { headers, cookies } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
+import { createSupabaseClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
@@ -15,7 +15,7 @@ export default function Login({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createSupabaseClient(cookieStore);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -38,7 +38,7 @@ export default function Login({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createSupabaseClient(cookieStore);
 
     const { error } = await supabase.auth.signUp({
       email,

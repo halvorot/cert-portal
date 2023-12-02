@@ -1,6 +1,6 @@
 "use client";
 import { MAX_SCORE, MIN_SCORE } from "@/js/constants";
-import { createClient } from "@/utils/supabase/client";
+import { createSupabaseClient } from "@/utils/supabase/client";
 import { PostgrestError, User } from "@supabase/supabase-js";
 import React, { useEffect, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
@@ -37,7 +37,7 @@ export default function AddRatingModal({
 
   useEffect(() => {
     const checkUser = async () => {
-      const supabase = createClient();
+      const supabase = createSupabaseClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -58,7 +58,7 @@ export default function AddRatingModal({
       user_id: user?.id,
     };
     console.log(rating);
-    const supabase = createClient();
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase.from("ratings").insert(rating);
     if (error) {
       setError(error);

@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+import { createSupabaseClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import CertificationCard from "./CertificationCard";
 import H2 from "./H2";
@@ -7,7 +7,7 @@ export const revalidate = 0;
 
 export default async function CertificationGrid() {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createSupabaseClient(cookieStore);
   const { data: certifications, error } = await supabase.from("certifications")
     .select(`
       id,

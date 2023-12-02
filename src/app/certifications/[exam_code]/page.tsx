@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+import { createSupabaseClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import React, { useState } from "react";
 import H1 from "@/components/H1";
@@ -17,7 +17,7 @@ export default async function Page({
 }) {
   const { exam_code } = params;
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createSupabaseClient(cookieStore);
   const { data: certification, error } = await supabase
     .from("certifications")
     .select(
