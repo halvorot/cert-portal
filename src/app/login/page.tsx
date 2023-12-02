@@ -2,7 +2,7 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import HomeButton from "@/components/HomeButton";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 export default function Login({
   searchParams,
@@ -23,7 +23,9 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user: " + error.message);
+      return redirect(
+        "/login?message=Could not authenticate user: " + error.message,
+      );
     }
 
     return redirect("/");
@@ -62,26 +64,20 @@ export default function Login({
           className="flex w-full flex-1 flex-col justify-center gap-2 text-light"
           action={signIn}
         >
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="mb-6 rounded-md border px-4 py-2 text-dark"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="mb-6 rounded-md border px-4 py-2 text-dark"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <button className="mb-2 rounded-md bg-primary px-4 py-2 text-light hover:bg-primary-accent">
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input name="email" placeholder="you@example.com" required />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+          </FormControl>
+          <button className="my-2 rounded-md bg-primary px-4 py-2 text-light hover:bg-primary-accent">
             Sign In
           </button>
           <button
