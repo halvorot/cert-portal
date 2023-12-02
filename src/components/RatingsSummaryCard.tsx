@@ -62,8 +62,8 @@ export default function RatingsSummaryCard({
               textAlign="center"
               color={
                 wouldTakeAgainPercentage && wouldTakeAgainPercentage < 50
-                  ? "red"
-                  : "green"
+                  ? "#dc2626"
+                  : "#16a34a"
               }
               fontWeight="bold"
             >
