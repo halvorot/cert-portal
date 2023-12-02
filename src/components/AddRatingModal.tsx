@@ -144,7 +144,7 @@ export default function AddRatingModal({
                   </FormControl>
                   <Stack>
                     <Text>Comment</Text>
-                    <Textarea placeholder="Write your comment about the certification..." />
+                    <Textarea name="comment" placeholder="Write your comment about the certification..." />
                   </Stack>
                   <Checkbox name="would-take-again" defaultChecked size="lg">
                     Would take again?
