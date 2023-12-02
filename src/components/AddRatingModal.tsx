@@ -158,17 +158,17 @@ export default function AddRatingModal({
                 </Stack>
               </form>
             ) : error ? (
-              <p>An error occurred trying to add rating: {error.message}</p>
+              <Text>An error occurred trying to add rating: {error.message}</Text>
             ) : (
-              <div className="flex flex-col items-center gap-5 text-dark">
-                <p>You have to be logged in to add a rating</p>
+              <Stack alignItems="center" spacing="2rem">
+                <Text>You have to be logged in to add a rating</Text>
                 <Link
                   href="/login"
                   className="mb-2 rounded-lg bg-primary px-4 py-2 text-center font-medium text-light transition hover:bg-primary-accent focus:outline-none focus:ring-4 focus:ring-primary-accent/80"
                 >
                   Login
                 </Link>
-              </div>
+              </Stack>
             )}
           </ModalBody>
         </ModalContent>
