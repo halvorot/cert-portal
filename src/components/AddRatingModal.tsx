@@ -33,19 +33,21 @@ export default function AddRatingModal({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<PostgrestError | null>(null);
+  const [addRatingError, setAddRatingError] = useState<PostgrestError | null>(
+    null,
+  );
+  const supabase = createSupabaseClient();
 
   useEffect(() => {
     const checkUser = async () => {
-      const supabase = createSupabaseClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
       setUser(user);
     };
 
-    checkUser();
-  }, []);
+    checkUser().catch(console.error);
+  }, [supabase]);
 
   const addRating = async (formData: FormData) => {
     const rating = {
@@ -57,11 +59,11 @@ export default function AddRatingModal({
       certification: certification_id,
       user_id: user?.id,
     };
-    console.log(rating);
-    const supabase = createSupabaseClient();
+
     const { data, error } = await supabase.from("ratings").insert(rating);
+
     if (error) {
-      setError(error);
+      setAddRatingError(error);
       console.log(error.message);
       return error;
     }
@@ -73,20 +75,26 @@ export default function AddRatingModal({
     <>
       <button
         onClick={onOpen}
-        className="flex flex-col items-center gap-1 rounded-md bg-primary hover:bg-primary-accent px-4 py-2 text-sm text-light"
+        className="flex flex-col items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-light hover:bg-primary-accent"
       >
         <BsPlusCircle className="h-8 w-8" />
         Add Rating
       </button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setAddRatingError(null);
+          onClose();
+        }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add a rating!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {user && !error ? (
-              <form>
+            {user ? (
+              <form action={addRating}>
                 <Stack spacing="1rem">
                   <FormControl>
                     <FormLabel>
@@ -144,21 +152,25 @@ export default function AddRatingModal({
                   </FormControl>
                   <Stack>
                     <Text>Comment</Text>
-                    <Textarea name="comment" placeholder="Write your comment about the certification..." />
+                    <Textarea
+                      name="comment"
+                      placeholder="Write your comment about the certification..."
+                    />
                   </Stack>
                   <Checkbox name="would-take-again" defaultChecked size="lg">
                     Would take again?
                   </Checkbox>
-                  <Button
-                    type="submit"
-                    formAction={addRating}
-                  >
+                  <Button type="submit">
                     Add rating
                   </Button>
+                  {addRatingError && (
+                    <Text color="red">
+                      An error occurred trying to add rating:{" "}
+                      {addRatingError.message}
+                    </Text>
+                  )}
                 </Stack>
               </form>
-            ) : error ? (
-              <Text>An error occurred trying to add rating: {error.message}</Text>
             ) : (
               <Stack alignItems="center" spacing="2rem">
                 <Text>You have to be logged in to add a rating</Text>

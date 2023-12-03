@@ -16,7 +16,7 @@ import {
   useBoolean,
 } from "@chakra-ui/react";
 import { createSupabaseClient } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   const [isExpanded, setIsExpanded] = useBoolean();
@@ -24,7 +24,7 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
 
   const supabase = createSupabaseClient();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getUserFromSupabase = async () => {
       const { data } = await supabase.auth.getUser();
       setUserId(data.user?.id);
