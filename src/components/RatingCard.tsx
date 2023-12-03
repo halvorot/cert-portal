@@ -17,25 +17,23 @@ import {
 } from "@chakra-ui/react";
 import { createSupabaseClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
-import { User } from "@supabase/supabase-js";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   const [isExpanded, setIsExpanded] = useBoolean();
   const [userId, setUserId] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    const supabase = createSupabaseClient();
+  const supabase = createSupabaseClient();
 
+  useEffect(() => {
     const getUserFromSupabase = async () => {
       const { data } = await supabase.auth.getUser();
       setUserId(data.user?.id);
     };
 
     getUserFromSupabase().catch(console.error);
-  }, [userId]);
+  }, [supabase]);
 
   const deleteRating = async (idToDelete: number) => {
-    const supabase = createSupabaseClient();
     await supabase.from("ratings").delete().match({ id: idToDelete });
   };
 

@@ -4,7 +4,15 @@ import React, { useEffect } from "react";
 import RatingCard from "./RatingCard";
 import { createSupabaseClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { Card, CardBody, CardHeader, Center, Text } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Stack,
+  Center,
+  Icon,
+  Text,
+} from "@chakra-ui/react";
+import { BsEmojiFrown } from "react-icons/bs";
 
 export default function RealtimeRatings({
   ratings,
@@ -48,9 +56,12 @@ export default function RealtimeRatings({
     </ul>
   ) : (
     <Center>
-      <Card width="100%" maxWidth="24rem" textAlign="center">
+      <Card width="100%" maxWidth="24rem">
         <CardBody>
-          <Text>No ratings yet</Text>
+          <Stack justifyContent="center" alignItems="center">
+            <Icon as={BsEmojiFrown} boxSize={6} />
+            <Text>No ratings yet</Text>
+          </Stack>
         </CardBody>
       </Card>
     </Center>
