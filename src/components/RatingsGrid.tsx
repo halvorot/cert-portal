@@ -1,5 +1,5 @@
 
-import { RatingType } from "@/js/types";
+import { RatingType } from "@/lib/types";
 import RatingCard from "./RatingCard";
 import React from "react";
 

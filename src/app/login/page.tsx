@@ -3,7 +3,7 @@ import {
   readUserSession,
   signInWithEmailAndPassword,
   signUpWithEmailAndPassword,
-} from "@/lib/auth";
+} from "@/lib/authUtils";
 import { redirect } from "next/navigation";
 
 export default async function Login({
@@ -11,6 +11,12 @@ export default async function Login({
 }: {
   searchParams: { message: string };
 }) {
+  const { data } = await readUserSession();
+
+  if (data.session) {
+    return redirect("/");
+  }
+
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -22,17 +28,10 @@ export default async function Login({
   const signUp = async (formData: FormData) => {
     "use server";
 
-    
-
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     await signUpWithEmailAndPassword(email, password);
   };
-
-  const {data} = await readUserSession();
-  if (data.session) {
-    return redirect("/")
-  }
 
   return (
     <div className="flex w-full items-center justify-center">

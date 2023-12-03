@@ -1,5 +1,5 @@
 "use client";
-import { MAX_SCORE, MIN_SCORE } from "@/js/constants";
+import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
 import { createSupabaseClient } from "@/utils/supabase/client";
 import { PostgrestError, User } from "@supabase/supabase-js";
 import React, { useEffect, useState } from "react";

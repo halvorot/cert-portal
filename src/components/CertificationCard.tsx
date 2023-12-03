@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { getWouldTakeAgainPercentage } from "@/js/utils";
+import { getWouldTakeAgainPercentage } from "@/lib/utils";
 import { BsChatRightQuote, BsArrowRepeat } from "react-icons/bs";
-import type { CertificationType } from "@/js/types";
+import type { CertificationType } from "@/lib/types";
 
 export default function CertificationCard({
   certification,

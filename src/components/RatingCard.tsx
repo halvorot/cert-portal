@@ -1,13 +1,20 @@
 "use client";
-import { RatingType } from "@/js/types";
-import React, { useState } from "react";
+import { RatingType } from "@/lib/types";
 import RatingsBar from "./RatingBar";
-import { MAX_SCORE, MIN_SCORE } from "@/js/constants";
+import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
 import { BsPatchCheckFill, BsXOctagonFill } from "react-icons/bs";
-import { Card, CardBody, HStack, Icon, Stack, Text } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  HStack,
+  Icon,
+  Stack,
+  Text,
+  useBoolean,
+} from "@chakra-ui/react";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useBoolean();
 
   return (
     <Card>
@@ -51,7 +58,14 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
               <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity}>
                 {rating.comment}
               </Text>
-              <Text fontSize="sm" onClick={() => setIsExpanded(!isExpanded)} as='u'>
+              <Text
+                fontSize="sm"
+                onClick={setIsExpanded.toggle}
+                as="u"
+                _hover={{
+                  cursor: "pointer",
+                }}
+              >
                 Show {isExpanded ? "less" : "more"}
               </Text>
             </>

@@ -20,16 +20,16 @@ export async function signUpWithEmailAndPassword(
   });
 
   if (error) {
-    return redirect(
-      "/login?message=Could not sign up: " + error.message,
-    );
+    return redirect("/login?message=Could not sign up: " + error.message);
   }
 
   if (data && data.user) {
     // Check if the user got created
     if (!data.user.identities || data.user.identities?.length <= 0) {
       // failed, the email address is taken
-      return redirect(`/login?message=Could not sign up: User with email ${data.user.email} already exists`)
+      return redirect(
+        `/login?message=Could not sign up: User with email ${data.user.email} already exists`,
+      );
     }
   }
 
@@ -58,7 +58,19 @@ export async function signInWithEmailAndPassword(
   return redirect("/");
 }
 
+export async function signOut() {
+  "use server";
+
+  const supabase = createSupabaseClient();
+
+  await supabase.auth.signOut();
+
+  return redirect("/");
+};
+
 export async function readUserSession() {
-  const supabase = await createSupabaseClient();
+  "use server";
+
+  const supabase = createSupabaseClient();
   return supabase.auth.getSession();
 }
