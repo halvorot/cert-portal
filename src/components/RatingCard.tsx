@@ -29,7 +29,6 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
     const getUserFromSupabase = async () => {
       const { data } = await supabase.auth.getUser();
       setUserId(data.user?.id);
-      console.log(userId);
     };
 
     getUserFromSupabase().catch(console.error);

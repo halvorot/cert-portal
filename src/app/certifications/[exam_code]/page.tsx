@@ -3,8 +3,8 @@ import H1 from "@/components/H1";
 import H2 from "@/components/H2";
 import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
-import RatingsGrid from "@/components/RatingsGrid";
 import AddRatingModal from "@/components/AddRatingModal";
+import RealtimeRatings from "@/components/RealtimeRatings";
 
 export const revalidate = 0;
 
@@ -65,12 +65,8 @@ export default async function Page({
             </>
           )}
 
-          {certification.ratings.length > 0 && (
-            <>
-              <H2 text="Ratings" />
-              <RatingsGrid ratings={certification.ratings} />
-            </>
-          )}
+          <H2 text="Ratings" />
+          <RealtimeRatings ratings={certification.ratings} />
         </>
       )}
     </>
