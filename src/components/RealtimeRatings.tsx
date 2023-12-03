@@ -46,7 +46,6 @@ export default function RealtimeRatings({
           table: "ratings",
         },
         (payload) => {
-          console.log(payload);
           setRatings(
             [...ratings].filter((rating) => rating.id !== payload.old.id),
           );
