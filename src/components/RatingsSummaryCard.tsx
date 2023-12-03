@@ -26,7 +26,7 @@ export default function RatingsSummaryCard({
   const wouldTakeAgainPercentage = getWouldTakeAgainPercentage(ratings);
 
   return (
-    <Card width="24rem">
+    <Card width="100%" maxWidth="24rem">
       <CardBody>
         {ratings.length > 0 ? (
           <Stack spacing={5}>
