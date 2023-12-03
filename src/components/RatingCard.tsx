@@ -2,19 +2,43 @@
 import { RatingType } from "@/lib/types";
 import RatingsBar from "./RatingBar";
 import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
-import { BsPatchCheckFill, BsXOctagonFill } from "react-icons/bs";
+import { BsPatchCheckFill, BsTrash3, BsXOctagonFill } from "react-icons/bs";
 import {
   Card,
   CardBody,
+  Flex,
   HStack,
   Icon,
+  IconButton,
   Stack,
   Text,
+  Tooltip,
   useBoolean,
 } from "@chakra-ui/react";
+import { createSupabaseClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   const [isExpanded, setIsExpanded] = useBoolean();
+  const [userId, setUserId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const supabase = createSupabaseClient();
+
+    const getUserFromSupabase = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUserId(data.user?.id);
+      console.log(userId);
+    };
+
+    getUserFromSupabase().catch(console.error);
+  }, [userId]);
+
+  const deleteRating = async (idToDelete: number) => {
+    const supabase = createSupabaseClient();
+    await supabase.from("ratings").delete().match({ id: idToDelete });
+  };
 
   return (
     <Card>
@@ -69,6 +93,19 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
                 Show {isExpanded ? "less" : "more"}
               </Text>
             </>
+          )}
+          {userId && rating.user_id === userId && (
+            <Flex justifyContent="end">
+              <Tooltip label="Delete rating" placement="auto" float="right">
+                <IconButton
+                  onClick={() => deleteRating(rating.id)}
+                  aria-label="Delete rating"
+                  icon={<BsTrash3 />}
+                  variant="ghost"
+                  fontSize="1rem"
+                />
+              </Tooltip>
+            </Flex>
           )}
         </Stack>
       </CardBody>

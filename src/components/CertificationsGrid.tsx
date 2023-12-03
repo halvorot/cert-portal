@@ -13,7 +13,7 @@ export default async function CertificationGrid() {
       description,
       exam_code,
       badge_image_url,
-      ratings ( id, comment, overall, difficulty, usefulness, would_take_again )
+      ratings ( id, comment, overall, difficulty, usefulness, would_take_again, user_id )
     `,
     )
     .order("name", { ascending: true });
