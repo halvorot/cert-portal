@@ -66,7 +66,7 @@ export default async function Page({
           )}
 
           <H2 text="Ratings" />
-          <RealtimeRatings ratings={certification.ratings} />
+          <RealtimeRatings serverRatings={certification.ratings} />
         </>
       )}
     </>
