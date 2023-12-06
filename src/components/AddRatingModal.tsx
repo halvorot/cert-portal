@@ -27,9 +27,11 @@ import {
 import { Link } from "@chakra-ui/next-js";
 
 export default function AddRatingModal({
-  certification_id,
+  certificationId,
+  withIcon = true,
 }: {
-  certification_id: string;
+  certificationId: string;
+  withIcon?: boolean;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<User | null>(null);
@@ -57,7 +59,7 @@ export default function AddRatingModal({
       usefulness: formData.get("usefulness"),
       comment: formData.get("comment"),
       would_take_again: formData.get("would-take-again") || false,
-      certification: certification_id,
+      certification: certificationId,
       user_id: user?.id,
     };
 
@@ -77,7 +79,7 @@ export default function AddRatingModal({
         onClick={onOpen}
         className="flex flex-col items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-light hover:bg-primary-accent"
       >
-        <BsPlusCircle className="h-8 w-8" />
+        {withIcon && <BsPlusCircle className="h-8 w-8" />}
         Add Rating
       </button>
 
@@ -95,7 +97,7 @@ export default function AddRatingModal({
           <ModalBody>
             {user ? (
               <form
-                action={formData =>
+                action={(formData) =>
                   startTransition(() => addRating(formData))
                 }
               >

@@ -28,7 +28,7 @@ export default function CertificationCard({
             <h3 className="text-md text-light-accent">
               {certification.exam_code}
             </h3>
-            <h2 className="text-lg font-semibold">{certification.name}</h2>
+            <h2 className="text-lg font-semibold line-clamp-2">{certification.name}</h2>
           </div>
         </span>
         <div className="mt-2 flex items-center justify-end gap-5 text-light-accent">

@@ -53,9 +53,9 @@ export default async function Page({
             gradientText={certification.name.split(" ").slice(-1)}
           />
 
-          <div className="mb-10 flex flex-col items-center justify-center gap-5">
+          <div className="mb-14 flex flex-col items-center justify-center gap-5">
             <RatingsSummaryCard ratings={certification.ratings || []} />
-            <AddRatingModal certification_id={certification.id} />
+            <AddRatingModal certificationId={certification.id} />
           </div>
           {certification.description && (
             <>
@@ -67,7 +67,10 @@ export default async function Page({
           )}
 
           <H2 text="Ratings" />
-          <RealtimeRatings serverRatings={certification.ratings} />
+          <RealtimeRatings
+            serverRatings={certification.ratings}
+            certificationId={certification.id}
+          />
         </>
       )}
     </>

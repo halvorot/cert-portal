@@ -1,3 +1,4 @@
+import Certifications from "@/components/Certifications";
 import CertificationGrid from "@/components/CertificationsGrid";
 import H1 from "@/components/H1";
 import H2 from "@/components/H2";
@@ -10,7 +11,7 @@ export default async function Index() {
       <div className="flex flex-col justify-center text-center">
         <H2 text="Browse certifications to find the best one for you" />
         <Suspense fallback="Loading certifications...">
-          <CertificationGrid />
+          <Certifications/>
         </Suspense>
       </div>
     </div>

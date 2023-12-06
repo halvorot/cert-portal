@@ -5,11 +5,14 @@ import RatingCard from "./RatingCard";
 import { createSupabaseClient } from "@/utils/supabase/client";
 import { Card, CardBody, Stack, Center, Icon, Text } from "@chakra-ui/react";
 import { BsEmojiFrown } from "react-icons/bs";
+import AddRatingModal from "./AddRatingModal";
 
 export default function RealtimeRatings({
   serverRatings,
+  certificationId,
 }: {
   serverRatings: RatingType[];
+  certificationId: string;
 }) {
   const [ratings, setRatings] = useState(serverRatings);
   const supabase = createSupabaseClient();
@@ -76,7 +79,11 @@ export default function RealtimeRatings({
         <CardBody>
           <Stack justifyContent="center" alignItems="center">
             <Icon as={BsEmojiFrown} boxSize={6} />
-            <Text>No ratings yet</Text>
+            <Text mb="1rem">No ratings yet</Text>
+            <AddRatingModal
+              certificationId={certificationId}
+              withIcon={false}
+            />
           </Stack>
         </CardBody>
       </Card>
