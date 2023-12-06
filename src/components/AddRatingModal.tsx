@@ -2,7 +2,7 @@
 import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
 import { createSupabaseClient } from "@/utils/supabase/client";
 import { PostgrestError, User } from "@supabase/supabase-js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import {
   Text,
@@ -36,6 +36,7 @@ export default function AddRatingModal({
   const [addRatingError, setAddRatingError] = useState<PostgrestError | null>(
     null,
   );
+  const [isPending, startTransition] = useTransition();
   const supabase = createSupabaseClient();
 
   useEffect(() => {
@@ -60,15 +61,14 @@ export default function AddRatingModal({
       user_id: user?.id,
     };
 
-    const { data, error } = await supabase.from("ratings").insert(rating);
+    const { error } = await supabase.from("ratings").insert(rating);
 
     if (error) {
       setAddRatingError(error);
       console.log(error.message);
-      return error;
+      return;
     }
     onClose();
-    return data;
   };
 
   return (
@@ -94,7 +94,11 @@ export default function AddRatingModal({
           <ModalCloseButton />
           <ModalBody>
             {user ? (
-              <form action={addRating}>
+              <form
+                action={formData =>
+                  startTransition(() => addRating(formData))
+                }
+              >
                 <Stack spacing="1rem">
                   <FormControl>
                     <FormLabel>
@@ -160,7 +164,7 @@ export default function AddRatingModal({
                   <Checkbox name="would-take-again" defaultChecked size="lg">
                     Would take again?
                   </Checkbox>
-                  <Button type="submit">
+                  <Button type="submit" isLoading={isPending}>
                     Add rating
                   </Button>
                   {addRatingError && (
