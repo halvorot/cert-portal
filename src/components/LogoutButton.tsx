@@ -8,7 +8,7 @@ export default function LogoutButton({ email }: { email: string | undefined }) {
 
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row">
-      {email && <p>Hello, {email}!</p>}
+      {email}
       <Button isLoading={isPending} onClick={() => startTransition(signOut)}>
         Logout
       </Button>
