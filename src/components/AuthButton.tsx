@@ -1,25 +1,14 @@
-import { signOut } from "@/lib/authUtils";
-import { createSupabaseClient } from "@/utils/supabase/server";
+import { readUserSession } from "@/lib/authUtils";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { BsPerson } from "react-icons/bs";
+import LogoutButton from "./LogoutButton";
 
 export default async function AuthButton() {
-  const supabase = createSupabaseClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data } = await readUserSession();
 
-  return user ? (
-    <div className="flex flex-col items-center gap-4 sm:flex-row">
-      Hello, {user.email}!
-      <form action={signOut}>
-        <button className="rounded-md bg-light-accent/10 px-4 py-2 font-semibold no-underline hover:bg-light-accent/20">
-          Logout
-        </button>
-      </form>
-    </div>
+  return data.session ? (
+    <LogoutButton email={data.session.user.email}/>
   ) : (
     <Link
       href="/login"
