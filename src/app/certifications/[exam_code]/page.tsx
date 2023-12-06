@@ -5,8 +5,7 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-
-export const revalidate = 0;
+import { Stack } from "@chakra-ui/react";
 
 export default async function Page({
   params,
@@ -31,15 +30,17 @@ export default async function Page({
 
   if (error) {
     return (
-      <>
+      <Stack textAlign="center">
         <H2 text="An error occurred when fetching data about the certification" />
-        <p>{error.message}</p>
-      </>
-    );
-  }
-  if (!certification) {
-    return (
-      <H2 text={`No certification with the exam code ${exam_code} found`} />
+        {error.code === "PGRST116" ? (
+          <p>No certification with the exam code '{exam_code}' was found</p>
+        ) : (
+          <>
+            <p>{error.message}</p>
+            <p>{error.details}</p>
+          </>
+        )}
+      </Stack>
     );
   }
 
