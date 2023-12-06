@@ -1,12 +1,14 @@
-"use client";
 import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 import { BsHouse } from "react-icons/bs";
 
 export default function HomeButton() {
   return (
-    <Button as="a" href="/" leftIcon={<BsHouse />}>
-      Home
-    </Button>
+    <Link href="/">
+      <Button leftIcon={<BsHouse />}>
+        Home
+      </Button>
+    </Link>
   );
 }
