@@ -12,7 +12,7 @@ export default function RealtimeRatings({
   certificationId,
 }: {
   serverRatings: RatingType[];
-  certificationId: string;
+  certificationId: number;
 }) {
   const [ratings, setRatings] = useState(serverRatings);
   const supabase = createSupabaseClient();
@@ -81,6 +81,7 @@ export default function RealtimeRatings({
             <Icon as={BsEmojiFrown} boxSize={6} />
             <Text mb="1rem">No ratings yet</Text>
             <AddRatingModal
+            
               certificationId={certificationId}
               withIcon={false}
             />

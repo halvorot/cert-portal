@@ -14,5 +14,6 @@ export interface RatingType {
   difficulty: number;
   usefulness: number;
   would_take_again: boolean;
+  certification: number;
   user_id: string;
 }
