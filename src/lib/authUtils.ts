@@ -1,6 +1,7 @@
 "use server";
 
 import { createSupabaseClient } from "@/utils/supabase/server";
+import { Provider } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -20,20 +21,16 @@ export async function signUpWithEmailAndPassword(
   });
 
   if (error) {
-    return redirect("/login?message=Could not sign up: " + error.message);
+    return "Could not sign up: " + error.message;
   }
 
   if (data && data.user) {
     // Check if the user got created
     if (!data.user.identities || data.user.identities?.length <= 0) {
       // failed, the email address is taken
-      return redirect(
-        `/login?message=Could not sign up: User with email ${data.user.email} already exists`,
-      );
+      return `Could not sign up: User with email ${data.user.email} already exists`;
     }
   }
-
-  return redirect("/login?message=Check email to continue sign in process");
 }
 
 export async function signInWithEmailAndPassword(
@@ -48,12 +45,21 @@ export async function signInWithEmailAndPassword(
   });
 
   if (error) {
-    return redirect(
-      "/login?message=Could not authenticate user: " + error.message,
-    );
+    return "Could not authenticate user: " + error.message;
   }
+}
 
-  return redirect("/");
+export async function signInWithProvider(provider: Provider) {
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: provider,
+  });
+  if (error) {
+    return error.message;
+  } else {
+    redirect(data.url);
+  }
 }
 
 export async function signOut() {
@@ -62,7 +68,7 @@ export async function signOut() {
   await supabase.auth.signOut();
 
   return redirect("/");
-};
+}
 
 export async function readUserSession() {
   const supabase = createSupabaseClient();

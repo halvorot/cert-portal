@@ -1,67 +1,152 @@
 "use client";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+
+import { createSupabaseClient } from "@/utils/supabase/client";
+import {
+  Stack,
+  Heading,
+  FormControl,
+  FormLabel,
+  HStack,
+  Checkbox,
+  Button,
+  Divider,
+  Container,
+  Text,
+  Box,
+  Input,
+  ButtonGroup,
+  VisuallyHidden,
+} from "@chakra-ui/react";
+import { PasswordField } from "./PasswordField";
+import { BsGoogle } from "react-icons/bs";
+import { useState, useTransition } from "react";
 import {
   signInWithEmailAndPassword,
+  signInWithProvider,
   signUpWithEmailAndPassword,
 } from "@/lib/authUtils";
-import { useTransition } from "react";
+import { Provider } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
-export default function LoginForm({ errorMessage }: { errorMessage: string }) {
+export default function LoginForm() {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [formMessage, setFormMessage] = useState<string | undefined>(undefined);
   const [signInIsPending, startSignInTransition] = useTransition();
   const [signUpIsPending, startSignUpTransition] = useTransition();
 
   const signIn = async (formData: FormData) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    await signInWithEmailAndPassword(email, password);
+    const signInError = await signInWithEmailAndPassword(email, password);
+    setFormMessage(signInError);
   };
 
   const signUp = async (formData: FormData) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    await signUpWithEmailAndPassword(email, password);
+    const signUpError = await signUpWithEmailAndPassword(email, password);
+    if (signUpError) {
+      setFormMessage(signUpError);
+    } else {
+      setFormMessage("Check your email to continue the sign in process");
+    }
+  };
+
+  const signInProvider = async (provider: Provider) => {
+    const errorMessage = await signInWithProvider(provider);
+    if (errorMessage) {
+      setFormMessage(errorMessage);
+    }
   };
 
   return (
-    <div className="flex w-full items-center justify-center">
-      <div className="px-8 sm:max-w-md">
-        <form
-          className="flex w-full flex-1 flex-col justify-center gap-2 text-light"
-          action={(formData) => startSignInTransition(() => signIn(formData))}
-        >
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input name="email" placeholder="you@example.com" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              required
-            />
-          </FormControl>
-          <Button
-            type="submit"
-            isLoading={signInIsPending}
-            className="my-2 rounded-md bg-primary px-4 py-2 text-light hover:bg-primary-accent"
-          >
-            Sign In
-          </Button>
-          <Button
-            type="submit"
-            formAction={(formData) => startSignUpTransition(() => signUp(formData))}
-            isLoading={signUpIsPending}
-            className="mb-2 rounded-md border border-light/20 bg-dark-accent/50 px-4 py-2 text-light hover:bg-dark-accent/20"
-          >
-            Sign Up
-          </Button>
-          {errorMessage && (
-            <p className="mt-4 p-4 text-center text-light">{errorMessage}</p>
+    <Container maxW="lg" px={{ base: "0", sm: "8" }}>
+      <Stack spacing="3">
+        <Stack textAlign="center">
+          <Heading mb="1rem">Log in to your account</Heading>
+          {isSignUp ? (
+            <Text color="fg.muted">
+              Already have an account?{" "}
+              <Text
+                onClick={() => setIsSignUp(false)}
+                as="u"
+                _hover={{
+                  cursor: "pointer",
+                }}
+              >
+                Sign in
+              </Text>
+            </Text>
+          ) : (
+            <Text color="fg.muted">
+              Don't have an account?{" "}
+              <Text
+                onClick={() => setIsSignUp(true)}
+                as="u"
+                _hover={{
+                  cursor: "pointer",
+                }}
+              >
+                Sign up
+              </Text>
+            </Text>
           )}
-        </form>
-      </div>
-    </div>
+        </Stack>
+        <Box
+          py={{ base: "0", sm: "8" }}
+          px={{ base: "4", sm: "10" }}
+          bg={{ base: "transparent", sm: "bg.surface" }}
+          boxShadow={{ base: "none", sm: "md" }}
+          borderRadius={{ base: "none", sm: "xl" }}
+        >
+          <form>
+            <Stack spacing="6">
+              <Button
+                type="submit"
+                formAction={() => signInProvider("google")}
+                leftIcon={<BsGoogle />}
+              >
+                <Text fontSize="sm">Sign in with Google</Text>
+              </Button>
+              <HStack>
+                <Divider />
+                <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
+                  or continue with email
+                </Text>
+                <Divider />
+              </HStack>
+              <Stack spacing="5">
+                <FormControl>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <Input id="email" name="email" type="email" />
+                </FormControl>
+                <PasswordField />
+              </Stack>
+              <Button
+                type="submit"
+                formAction={(formData) =>
+                  startSignInTransition(() => signIn(formData))
+                }
+                hidden={isSignUp}
+                isLoading={signInIsPending}
+              >
+                Sign in
+              </Button>
+              <Button
+                type="submit"
+                formAction={(formData) =>
+                  startSignUpTransition(() => signUp(formData))
+                }
+                hidden={!isSignUp}
+                isLoading={signUpIsPending}
+              >
+                Sign up
+              </Button>
+              {formMessage && <Text>{formMessage}</Text>}
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Container>
   );
 }
