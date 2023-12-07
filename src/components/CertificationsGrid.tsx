@@ -11,7 +11,7 @@ export default function CertificationGrid({
   return (
     <SimpleGrid minChildWidth="18rem" spacing="20px">
       {certifications.map((row) => (
-        <CertificationCard certification={row} />
+        <CertificationCard key={row.id} certification={row} />
       ))}
     </SimpleGrid>
   );
