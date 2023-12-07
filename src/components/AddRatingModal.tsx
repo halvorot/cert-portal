@@ -1,7 +1,5 @@
 "use client";
 import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
-import { createSupabaseClient } from "@/utils/supabase/client";
-import { PostgrestError, User } from "@supabase/supabase-js";
 import React, { useEffect, useState, useTransition } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import {
@@ -25,51 +23,60 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
+import { readUserSession } from "@/lib/authUtils";
+import { User } from "@supabase/supabase-js";
+import { Rating, addRating } from "@/lib/databaseUtils";
 
 export default function AddRatingModal({
   certificationId,
   withIcon = true,
 }: {
-  certificationId: string;
+  certificationId: number;
   withIcon?: boolean;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = useState<User | null>(null);
-  const [addRatingError, setAddRatingError] = useState<PostgrestError | null>(
-    null,
+  const [user, setUser] = useState<User | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined,
   );
   const [isPending, startTransition] = useTransition();
-  const supabase = createSupabaseClient();
 
   useEffect(() => {
     const checkUser = async () => {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
+        data: { session },
+      } = await readUserSession();
+      setUser(session?.user);
     };
 
     checkUser().catch(console.error);
-  }, [supabase]);
+  }, [readUserSession]);
 
-  const addRating = async (formData: FormData) => {
-    const rating = {
-      overall: formData.get("overall"),
-      difficulty: formData.get("difficulty"),
-      usefulness: formData.get("usefulness"),
-      comment: formData.get("comment"),
-      would_take_again: formData.get("would-take-again") || false,
+  const handleAddRating = async (formData: FormData) => {
+    if (!user) {
+      setErrorMessage(
+        "Could not find user. Make sure you are logged in correctly.",
+      );
+      return;
+    }
+
+    const rating: Rating = {
+      overall: Number(formData.get("overall")),
+      difficulty: Number(formData.get("difficulty")),
+      usefulness: Number(formData.get("usefulness")),
+      comment: formData.get("comment") as string,
+      would_take_again: Boolean(formData.get("would-take-again")) || false,
       certification: certificationId,
       user_id: user?.id,
     };
 
-    const { error } = await supabase.from("ratings").insert(rating);
+    const errorMessage = await addRating(rating);
 
-    if (error) {
-      setAddRatingError(error);
-      console.log(error.message);
+    if (errorMessage) {
+      setErrorMessage(errorMessage);
       return;
     }
+
     onClose();
   };
 
@@ -86,7 +93,7 @@ export default function AddRatingModal({
       <Modal
         isOpen={isOpen}
         onClose={() => {
-          setAddRatingError(null);
+          setErrorMessage(undefined);
           onClose();
         }}
       >
@@ -98,7 +105,7 @@ export default function AddRatingModal({
             {user ? (
               <form
                 action={(formData) =>
-                  startTransition(() => addRating(formData))
+                  startTransition(() => handleAddRating(formData))
                 }
               >
                 <Stack spacing="1rem">
@@ -169,10 +176,9 @@ export default function AddRatingModal({
                   <Button type="submit" isLoading={isPending}>
                     Add rating
                   </Button>
-                  {addRatingError && (
+                  {errorMessage && (
                     <Text color="red">
-                      An error occurred trying to add rating:{" "}
-                      {addRatingError.message}
+                      An error occurred trying to add rating: {errorMessage}
                     </Text>
                   )}
                 </Stack>
