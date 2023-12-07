@@ -15,7 +15,7 @@ export default async function Certifications() {
       description,
       exam_code,
       badge_image_url,
-      ratings ( id, comment, overall, difficulty, usefulness, would_take_again, user_id )
+      ratings ( id, comment, overall, difficulty, usefulness, would_take_again, certification, user_id )
     `,
     )
     .order("name", { ascending: true });
