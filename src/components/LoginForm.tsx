@@ -1,21 +1,17 @@
 "use client";
 
-import { createSupabaseClient } from "@/utils/supabase/client";
 import {
   Stack,
   Heading,
   FormControl,
   FormLabel,
   HStack,
-  Checkbox,
   Button,
   Divider,
   Container,
   Text,
   Box,
   Input,
-  ButtonGroup,
-  VisuallyHidden,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PasswordField";
 import { BsGoogle } from "react-icons/bs";
@@ -26,11 +22,10 @@ import {
   signUpWithEmailAndPassword,
 } from "@/lib/authUtils";
 import { Provider } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
 
-export default function LoginForm() {
+export default function LoginForm({ message }: { message: string }) {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [formMessage, setFormMessage] = useState<string | undefined>(undefined);
+  const [formMessage, setFormMessage] = useState<string | undefined>(message);
   const [signInIsPending, startSignInTransition] = useTransition();
   const [signUpIsPending, startSignUpTransition] = useTransition();
 
@@ -101,7 +96,7 @@ export default function LoginForm() {
         >
           <form>
             <Stack spacing="6">
-              <Box hidden>
+              <Box>
                 <Button
                   type="submit"
                   formAction={() => signInProvider("google")}

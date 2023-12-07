@@ -50,10 +50,14 @@ export async function signInWithEmailAndPassword(
 }
 
 export async function signInWithProvider(provider: Provider) {
+  const origin = headers().get("origin");
   const supabase = createSupabaseClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
   });
   if (error) {
     return error.message;

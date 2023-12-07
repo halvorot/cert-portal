@@ -6,7 +6,11 @@ import {
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
 
-export default async function Login() {
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: { message: string };
+}) {
   const { data } = await readUserSession();
 
   if (data.session) {
@@ -15,7 +19,7 @@ export default async function Login() {
 
   return (
     <div className="flex w-full items-center justify-center">
-      <LoginForm />
+      <LoginForm message={searchParams?.message} />
     </div>
   );
 }
