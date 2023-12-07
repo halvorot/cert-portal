@@ -96,22 +96,20 @@ export default function LoginForm({ message }: { message: string }) {
         >
           <form>
             <Stack spacing="6">
-              <Box>
-                <Button
-                  type="submit"
-                  formAction={() => signInProvider("google")}
-                  leftIcon={<BsGoogle />}
-                >
-                  <Text fontSize="sm">Sign in with Google</Text>
-                </Button>
-                <HStack>
-                  <Divider />
-                  <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
-                    or continue with email
-                  </Text>
-                  <Divider />
-                </HStack>
-              </Box>
+              <Button
+                type="submit"
+                formAction={() => signInProvider("google")}
+                leftIcon={<BsGoogle />}
+              >
+                <Text fontSize="sm">Sign in with Google</Text>
+              </Button>
+              <HStack>
+                <Divider />
+                <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
+                  or continue with email
+                </Text>
+                <Divider />
+              </HStack>
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
