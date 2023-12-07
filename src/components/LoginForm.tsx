@@ -137,7 +137,7 @@ export default function LoginForm({ message }: { message: string }) {
               >
                 Sign up
               </Button>
-              {formMessage && <Text>{formMessage}</Text>}
+              {formMessage && <Text textAlign="center">{formMessage}</Text>}
             </Stack>
           </form>
         </Box>
