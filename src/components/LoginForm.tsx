@@ -28,6 +28,8 @@ export default function LoginForm({ message }: { message: string }) {
   const [formMessage, setFormMessage] = useState<string | undefined>(message);
   const [signInIsPending, startSignInTransition] = useTransition();
   const [signUpIsPending, startSignUpTransition] = useTransition();
+  const [signInProviderIsPending, startSignInProviderTransition] =
+    useTransition();
 
   const signIn = async (formData: FormData) => {
     const email = formData.get("email") as string;
@@ -98,7 +100,10 @@ export default function LoginForm({ message }: { message: string }) {
             <Stack spacing="6">
               <Button
                 type="submit"
-                formAction={() => signInProvider("google")}
+                formAction={() =>
+                  startSignInProviderTransition(() => signInProvider("google"))
+                }
+                isLoading={signInProviderIsPending}
                 leftIcon={<BsGoogle />}
               >
                 <Text fontSize="sm">Sign in with Google</Text>
