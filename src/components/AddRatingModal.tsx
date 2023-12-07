@@ -65,7 +65,7 @@ export default function AddRatingModal({
       difficulty: Number(formData.get("difficulty")),
       usefulness: Number(formData.get("usefulness")),
       comment: formData.get("comment") as string,
-      would_take_again: Boolean(formData.get("would-take-again")) || false,
+      would_take_again: Boolean(formData.get("would-take-again")),
       certification: certificationId,
       user_id: user?.id,
     };
