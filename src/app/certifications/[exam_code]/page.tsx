@@ -5,7 +5,7 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Stack } from "@chakra-ui/react";
+import { Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
 
 export default async function Page({
   params,
