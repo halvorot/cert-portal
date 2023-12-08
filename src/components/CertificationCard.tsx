@@ -9,7 +9,7 @@ export default function CertificationCard({
   certification: CertificationType;
 }) {
   return (
-    <div className="flex list-none items-center rounded-md bg-light-accent/20 p-0.5">
+    <div className="flex items-center rounded-md bg-light-accent/20 p-0.5">
       <a
         href={"/certifications/" + certification.exam_code}
         className="w-full rounded-lg px-6 pb-2 pt-6 leading-6 text-light"
