@@ -96,8 +96,8 @@ export default function LoginForm({ message }: { message: string }) {
           boxShadow={{ base: "none", sm: "md" }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <form>
-            <Stack spacing="6">
+          <Stack spacing="6">
+            <form>
               <Button
                 type="submit"
                 formAction={() =>
@@ -108,13 +108,15 @@ export default function LoginForm({ message }: { message: string }) {
               >
                 <Text fontSize="sm">Sign in with Google</Text>
               </Button>
-              <HStack>
-                <Divider />
-                <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
-                  or continue with email
-                </Text>
-                <Divider />
-              </HStack>
+            </form>
+            <HStack>
+              <Divider />
+              <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
+                or continue with email
+              </Text>
+              <Divider />
+            </HStack>
+            <form>
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
@@ -143,8 +145,8 @@ export default function LoginForm({ message }: { message: string }) {
                 Sign up
               </Button>
               {formMessage && <Text textAlign="center">{formMessage}</Text>}
-            </Stack>
-          </form>
+            </form>
+          </Stack>
         </Box>
       </Stack>
     </Container>
