@@ -12,6 +12,7 @@ import {
   Text,
   Box,
   Input,
+  Center,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PasswordField";
 import { BsGoogle } from "react-icons/bs";
@@ -93,21 +94,24 @@ export default function LoginForm({ message }: { message: string }) {
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
           bg={{ base: "transparent", sm: "bg.surface" }}
-          boxShadow={{ base: "none", sm: "md" }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
           <Stack spacing="6">
             <form>
-              <Button
-                type="submit"
-                formAction={() =>
-                  startSignInProviderTransition(() => signInProvider("google"))
-                }
-                isLoading={signInProviderIsPending}
-                leftIcon={<BsGoogle />}
-              >
-                <Text fontSize="sm">Sign in with Google</Text>
-              </Button>
+              <Center>
+                <Button
+                  type="submit"
+                  formAction={() =>
+                    startSignInProviderTransition(() =>
+                      signInProvider("google"),
+                    )
+                  }
+                  isLoading={signInProviderIsPending}
+                  leftIcon={<BsGoogle />}
+                >
+                  <Text fontSize="sm">Sign in with Google</Text>
+                </Button>
+              </Center>
             </form>
             <HStack>
               <Divider />
@@ -123,28 +127,28 @@ export default function LoginForm({ message }: { message: string }) {
                   <Input id="email" name="email" type="email" />
                 </FormControl>
                 <PasswordField />
+                <Button
+                  type="submit"
+                  formAction={(formData) =>
+                    startSignInTransition(() => signIn(formData))
+                  }
+                  hidden={isSignUp}
+                  isLoading={signInIsPending}
+                >
+                  Sign in
+                </Button>
+                <Button
+                  type="submit"
+                  formAction={(formData) =>
+                    startSignUpTransition(() => signUp(formData))
+                  }
+                  hidden={!isSignUp}
+                  isLoading={signUpIsPending}
+                >
+                  Sign up
+                </Button>
+                {formMessage && <Text textAlign="center">{formMessage}</Text>}
               </Stack>
-              <Button
-                type="submit"
-                formAction={(formData) =>
-                  startSignInTransition(() => signIn(formData))
-                }
-                hidden={isSignUp}
-                isLoading={signInIsPending}
-              >
-                Sign in
-              </Button>
-              <Button
-                type="submit"
-                formAction={(formData) =>
-                  startSignUpTransition(() => signUp(formData))
-                }
-                hidden={!isSignUp}
-                isLoading={signUpIsPending}
-              >
-                Sign up
-              </Button>
-              {formMessage && <Text textAlign="center">{formMessage}</Text>}
             </form>
           </Stack>
         </Box>
