@@ -20,7 +20,7 @@ import {
   signInWithEmailAndPassword,
   signInWithProvider,
   signUpWithEmailAndPassword,
-} from "@/lib/authUtils";
+} from "@/utils/authUtils";
 import { Provider } from "@supabase/supabase-js";
 
 export default function LoginForm({ message }: { message: string }) {

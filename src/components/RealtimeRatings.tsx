@@ -1,5 +1,5 @@
 "use client";
-import { RatingType } from "@/lib/types";
+import { RatingType } from "@/utils/types";
 import React, { useEffect, useState } from "react";
 import RatingCard from "./RatingCard";
 import { createSupabaseClient } from "@/utils/supabase/client";

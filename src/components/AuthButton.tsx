@@ -1,4 +1,4 @@
-import { readUserSession } from "@/lib/authUtils";
+import { readUserSession } from "@/utils/authUtils";
 import Link from "next/link";
 import { BsPerson } from "react-icons/bs";
 import LogoutButton from "./LogoutButton";

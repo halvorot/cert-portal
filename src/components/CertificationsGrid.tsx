@@ -1,7 +1,7 @@
 "use client"
 import CertificationCard from "./CertificationCard";
 import { SimpleGrid } from "@chakra-ui/react";
-import { CertificationType } from "@/lib/types";
+import { CertificationType } from "@/utils/types";
 
 export default function CertificationGrid({
   certifications,

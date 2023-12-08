@@ -1,4 +1,4 @@
-import type { CertificationType, RatingType } from "./types";
+import type { RatingType } from "./types";
 
 export function getWouldTakeAgainPercentage(
   ratings: RatingType[],

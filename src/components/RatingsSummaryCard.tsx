@@ -1,10 +1,10 @@
 "use client";
-import { RatingType } from "@/lib/types";
+import { RatingType } from "@/utils/types";
 import React from "react";
 import { BsChatRightQuote } from "react-icons/bs";
 import RatingsBar from "./RatingBar";
-import { getAverage, getWouldTakeAgainPercentage } from "@/lib/utils";
-import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
+import { getAverage, getWouldTakeAgainPercentage } from "@/utils/mathUtils";
+import { MAX_SCORE, MIN_SCORE } from "@/utils/constants";
 import {
   Card,
   CardBody,

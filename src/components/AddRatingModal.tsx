@@ -1,5 +1,5 @@
 "use client";
-import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
+import { MAX_SCORE, MIN_SCORE } from "@/utils/constants";
 import React, { useEffect, useState, useTransition } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import {
@@ -23,9 +23,9 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
-import { readUserSession } from "@/lib/authUtils";
+import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
-import { Rating, addRating } from "@/lib/databaseUtils";
+import { Rating, addRating } from "@/utils/databaseUtils";
 
 export default function AddRatingModal({
   certificationId,

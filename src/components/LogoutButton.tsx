@@ -1,5 +1,5 @@
 "use client";
-import { signOut } from "@/lib/authUtils";
+import { signOut } from "@/utils/authUtils";
 import { Button } from "@chakra-ui/react";
 import React, { useTransition } from "react";
 

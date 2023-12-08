@@ -1,7 +1,7 @@
 "use client";
-import { RatingType } from "@/lib/types";
+import { RatingType } from "@/utils/types";
 import RatingsBar from "./RatingBar";
-import { MAX_SCORE, MIN_SCORE } from "@/lib/constants";
+import { MAX_SCORE, MIN_SCORE } from "@/utils/constants";
 import { BsPatchCheckFill, BsTrash3, BsXOctagonFill } from "react-icons/bs";
 import {
   Card,
