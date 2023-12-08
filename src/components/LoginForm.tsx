@@ -15,7 +15,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PasswordField";
-import { BsGoogle } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useState, useTransition } from "react";
 import {
   signInWithEmailAndPassword,
@@ -29,8 +29,8 @@ export default function LoginForm({ message }: { message: string }) {
   const [formMessage, setFormMessage] = useState<string | undefined>(message);
   const [signInIsPending, startSignInTransition] = useTransition();
   const [signUpIsPending, startSignUpTransition] = useTransition();
-  const [signInProviderIsPending, startSignInProviderTransition] =
-    useTransition();
+  const [signInGoogleIsPending, startSignInGoogleTransition] = useTransition();
+  const [signInGithubIsPending, startSignInGithubTransition] = useTransition();
 
   const signIn = async (formData: FormData) => {
     const email = formData.get("email") as string;
@@ -98,20 +98,32 @@ export default function LoginForm({ message }: { message: string }) {
         >
           <Stack spacing="6">
             <form>
-              <Center>
+              <Stack spacing={2}>
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInProviderTransition(() =>
+                    startSignInGoogleTransition(() =>
                       signInProvider("google"),
                     )
                   }
-                  isLoading={signInProviderIsPending}
+                  isLoading={signInGoogleIsPending}
                   leftIcon={<BsGoogle />}
                 >
                   <Text fontSize="sm">Sign in with Google</Text>
                 </Button>
-              </Center>
+                <Button
+                  type="submit"
+                  formAction={() =>
+                    startSignInGithubTransition(() =>
+                      signInProvider("github"),
+                    )
+                  }
+                  isLoading={signInGithubIsPending}
+                  leftIcon={<BsGithub />}
+                >
+                  <Text fontSize="sm">Sign in with GitHub</Text>
+                </Button>
+              </Stack>
             </form>
             <HStack>
               <Divider />

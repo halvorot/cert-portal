@@ -1,6 +1,7 @@
 "use server";
 
 import { createSupabaseClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 
 export interface Rating {
   comment?: string;
@@ -11,6 +12,18 @@ export interface Rating {
   certification: number;
   user_id: string;
 }
+
+export async function deleteRating(idToDelete: number) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("ratings")
+    .delete()
+    .match({ id: idToDelete });
+  if (error) {
+    return error;
+  }
+  revalidatePath("/certifications")
+};
 
 export async function addRating(rating: Rating) {
   const supabase = createSupabaseClient();
@@ -33,4 +46,5 @@ export async function addRating(rating: Rating) {
     console.log(error.message);
     return error.message;
   }
+  revalidatePath(`/certifications`);
 }
