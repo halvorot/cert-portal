@@ -109,7 +109,7 @@ export default function LoginForm({ message }: { message: string }) {
                   isLoading={signInGoogleIsPending}
                   leftIcon={<BsGoogle />}
                 >
-                  <Text fontSize="sm">Sign in with Google</Text>
+                  <Text fontSize="sm">Sign {isSignUp ? "up" : "in"} with Google</Text>
                 </Button>
                 <Button
                   type="submit"
@@ -121,7 +121,7 @@ export default function LoginForm({ message }: { message: string }) {
                   isLoading={signInGithubIsPending}
                   leftIcon={<BsGithub />}
                 >
-                  <Text fontSize="sm">Sign in with GitHub</Text>
+                  <Text fontSize="sm">Sign {isSignUp ? "up" : "in"} with GitHub</Text>
                 </Button>
               </Stack>
             </form>
