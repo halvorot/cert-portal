@@ -62,36 +62,9 @@ export default function LoginForm({ message }: { message: string }) {
       <Stack spacing="3">
         <Stack textAlign="center">
           <Heading mb="1rem">Log in to your account</Heading>
-          {isSignUp ? (
-            <Text color="fg.muted">
-              Already have an account?{" "}
-              <Text
-                onClick={() => setIsSignUp(false)}
-                as="u"
-                _hover={{
-                  cursor: "pointer",
-                }}
-              >
-                Sign in
-              </Text>
-            </Text>
-          ) : (
-            <Text color="fg.muted">
-              Don't have an account?{" "}
-              <Text
-                onClick={() => setIsSignUp(true)}
-                as="u"
-                _hover={{
-                  cursor: "pointer",
-                }}
-              >
-                Sign up
-              </Text>
-            </Text>
-          )}
         </Stack>
         <Box
-          py={{ base: "0", sm: "8" }}
+          py={{ base: "0", sm: "5" }}
           px={{ base: "4", sm: "10" }}
           bg={{ base: "transparent", sm: "bg.surface" }}
           borderRadius={{ base: "none", sm: "xl" }}
@@ -102,26 +75,28 @@ export default function LoginForm({ message }: { message: string }) {
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGoogleTransition(() =>
-                      signInProvider("google"),
-                    )
+                    startSignInGoogleTransition(() => signInProvider("google"))
                   }
                   isLoading={signInGoogleIsPending}
                   leftIcon={<BsGoogle />}
+                  py="1.5rem"
                 >
-                  <Text fontSize="sm">Sign {isSignUp ? "up" : "in"} with Google</Text>
+                  <Text fontSize="sm">
+                    Sign {isSignUp ? "up" : "in"} with Google
+                  </Text>
                 </Button>
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGithubTransition(() =>
-                      signInProvider("github"),
-                    )
+                    startSignInGithubTransition(() => signInProvider("github"))
                   }
                   isLoading={signInGithubIsPending}
                   leftIcon={<BsGithub />}
+                  py="1.5rem"
                 >
-                  <Text fontSize="sm">Sign {isSignUp ? "up" : "in"} with GitHub</Text>
+                  <Text fontSize="sm">
+                    Sign {isSignUp ? "up" : "in"} with GitHub
+                  </Text>
                 </Button>
               </Stack>
             </form>
@@ -139,6 +114,33 @@ export default function LoginForm({ message }: { message: string }) {
                   <Input id="email" name="email" type="email" />
                 </FormControl>
                 <PasswordField />
+                {isSignUp ? (
+                  <Text color="fg.muted">
+                    Already have an account?{" "}
+                    <Text
+                      onClick={() => setIsSignUp(false)}
+                      as="u"
+                      _hover={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      Sign in
+                    </Text>
+                  </Text>
+                ) : (
+                  <Text color="fg.muted">
+                    Don't have an account?{" "}
+                    <Text
+                      onClick={() => setIsSignUp(true)}
+                      as="u"
+                      _hover={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      Sign up
+                    </Text>
+                  </Text>
+                )}
                 <Button
                   type="submit"
                   formAction={(formData) =>
