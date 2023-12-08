@@ -10,9 +10,9 @@ export async function GET(request: Request) {
     const supabase = createSupabaseClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (error) {
-      return NextResponse.redirect(`${origin}/login?message=${error.message}`);
+      return NextResponse.redirect(`${process.env.SITE_URL}/login?message=${error.message}`);
     }
   }
 
-  return NextResponse.redirect(`${origin}${next}`);
+  return NextResponse.redirect(`${process.env.SITE_URL}${next}`);
 }
