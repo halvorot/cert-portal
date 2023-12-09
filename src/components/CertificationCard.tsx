@@ -42,7 +42,7 @@ export default function CertificationCard({
           </div>
           <div className="flex items-center">
             <BsChatRightQuote className="mr-2 w-4" />
-            {certification.ratings?.length || 0}
+            {certification.ratings?.length ?? 0}
           </div>
         </div>
       </a>
