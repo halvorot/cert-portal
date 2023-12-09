@@ -61,9 +61,10 @@ export async function signInWithProvider(provider: Provider) {
   });
 
   if (error) {
-    return error.message;
+    console.log(error.message);
+    return redirect(`/login?message=${error.message}`);
   } else {
-    redirect(data.url);
+    return redirect(data.url);
   }
 }
 
