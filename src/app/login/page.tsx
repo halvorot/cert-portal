@@ -1,7 +1,5 @@
 import {
-  readUserSession,
-  signInWithEmailAndPassword,
-  signUpWithEmailAndPassword,
+  readUserSession
 } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
