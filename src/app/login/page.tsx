@@ -1,10 +1,7 @@
-import {
-  readUserSession,
-  signInWithEmailAndPassword,
-  signUpWithEmailAndPassword,
-} from "@/utils/authUtils";
+import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
+import { Slide, SlideFade } from "@chakra-ui/react";
 
 export default async function Login({
   searchParams,
@@ -19,7 +16,9 @@ export default async function Login({
 
   return (
     <div className="flex w-full items-center justify-center">
-      <LoginForm message={searchParams?.message} />
+      <SlideFade in={true} offsetY={"20px"}>
+        <LoginForm message={searchParams?.message} />
+      </SlideFade>
     </div>
   );
 }

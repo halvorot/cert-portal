@@ -12,7 +12,6 @@ import {
   Text,
   Box,
   Input,
-  Center,
 } from "@chakra-ui/react";
 import { PasswordField } from "./PasswordField";
 import { BsGithub, BsGoogle } from "react-icons/bs";
