@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getWouldTakeAgainPercentage } from "@/utils/mathUtils";
 import { BsChatRightQuote, BsArrowRepeat } from "react-icons/bs";
 import type { CertificationType } from "@/utils/types";
+import { motion } from "framer-motion";
 
 export default function CertificationCard({
   certification,
@@ -9,7 +10,10 @@ export default function CertificationCard({
   certification: CertificationType;
 }) {
   return (
-    <div className="flex items-center rounded-md bg-light-accent/20 p-0.5">
+    <motion.div
+      whileHover={{ scale: 1.05, boxShadow: "0 0.5rem 1rem rgb(10, 10, 10, 0.5)" }}
+      className="flex items-center rounded-md bg-light-accent/20 p-0.5"
+    >
       <a
         href={"/certifications/" + certification.exam_code}
         className="w-full rounded-lg px-6 pb-2 pt-6 leading-6 text-light"
@@ -28,15 +32,19 @@ export default function CertificationCard({
             <h3 className="text-md text-light-accent">
               {certification.exam_code}
             </h3>
-            <h2 className="text-lg font-semibold line-clamp-2">{certification.name}</h2>
+            <h2 className="line-clamp-2 text-lg font-semibold">
+              {certification.name}
+            </h2>
           </div>
         </span>
         <div className="mt-2 flex items-center justify-end gap-5 text-light-accent">
           <div>
-            {(certification.ratings && certification.ratings.length > 0) && (
+            {certification.ratings && certification.ratings.length > 0 && (
               <div className="flex items-center">
                 <BsArrowRepeat className="mr-1 w-4" />
-                {getWouldTakeAgainPercentage(certification.ratings)?.toFixed(0) + "%"}
+                {getWouldTakeAgainPercentage(certification.ratings)?.toFixed(
+                  0,
+                ) + "%"}
               </div>
             )}
           </div>
@@ -46,6 +54,6 @@ export default function CertificationCard({
           </div>
         </div>
       </a>
-    </div>
+    </motion.div>
   );
 }

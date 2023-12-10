@@ -71,36 +71,41 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
               </div>
             )}
           </HStack>
-          {rating.comment && (
-            <>
-              <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity}>
-                {rating.comment}
-              </Text>
-              <Text
-                fontSize="sm"
-                onClick={setIsExpanded.toggle}
-                as="u"
-                _hover={{
-                  cursor: "pointer",
-                }}
-              >
-                Show {isExpanded ? "less" : "more"}
-              </Text>
-            </>
-          )}
-          {userId && rating.user_id === userId && (
-            <Flex justifyContent="end">
-              <Tooltip label="Delete rating" placement="auto" float="right">
-                <IconButton
-                  onClick={() => deleteRating(rating.id)}
-                  aria-label="Delete rating"
-                  icon={<BsTrash3 />}
-                  variant="ghost"
-                  fontSize="1rem"
-                />
-              </Tooltip>
-            </Flex>
-          )}
+          <HStack
+            justifyContent={rating.comment ? "space-between" : "end"}
+            alignItems="end"
+          >
+            {rating.comment && (
+              <div>
+                <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity}>
+                  {rating.comment}
+                </Text>
+                <Text
+                  fontSize="sm"
+                  onClick={setIsExpanded.toggle}
+                  as="u"
+                  _hover={{
+                    cursor: "pointer",
+                  }}
+                >
+                  Show {isExpanded ? "less" : "more"}
+                </Text>
+              </div>
+            )}
+            {userId && rating.user_id === userId && (
+              <Flex justifyContent="end">
+                <Tooltip label="Delete rating" placement="auto" float="right">
+                  <IconButton
+                    onClick={() => deleteRating(rating.id)}
+                    aria-label="Delete rating"
+                    icon={<BsTrash3 />}
+                    variant="ghost"
+                    fontSize="1rem"
+                  />
+                </Tooltip>
+              </Flex>
+            )}
+          </HStack>
         </Stack>
       </CardBody>
     </Card>

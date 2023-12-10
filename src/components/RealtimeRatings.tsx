@@ -6,6 +6,23 @@ import { createSupabaseClient } from "@/utils/supabase/client";
 import { Card, CardBody, Stack, Center, Icon, Text } from "@chakra-ui/react";
 import { BsEmojiFrown } from "react-icons/bs";
 import AddRatingModal from "./AddRatingModal";
+import { motion } from "framer-motion";
+
+const container = {
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 export default function RealtimeRatings({
   serverRatings,
@@ -63,16 +80,17 @@ export default function RealtimeRatings({
   }, [supabase, setRatings, ratings]);
 
   return ratings.length > 0 ? (
-    <ul
+    <motion.ul
       role="list"
       className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      variants={container} initial="hidden" animate="visible"
     >
       {ratings.map((rating) => (
-        <li key={rating.id}>
+        <motion.li key={rating.id} variants={item}>
           <RatingCard rating={rating} />
-        </li>
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   ) : (
     <Center>
       <Card width="100%" maxWidth="24rem">
@@ -81,7 +99,6 @@ export default function RealtimeRatings({
             <Icon as={BsEmojiFrown} boxSize={6} />
             <Text mb="1rem">No ratings yet</Text>
             <AddRatingModal
-            
               certificationId={certificationId}
               withIcon={false}
             />

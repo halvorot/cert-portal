@@ -5,7 +5,7 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
+import { Skeleton, SkeletonText, SlideFade, Stack } from "@chakra-ui/react";
 
 export default async function Page({
   params,
@@ -47,7 +47,7 @@ export default async function Page({
   return (
     <>
       {certification && (
-        <>
+        <SlideFade in={true} offsetY={"20px"}>
           <H1
             preText={certification.name.split(" ").slice(0, -1).join(" ")}
             gradientText={certification.name.split(" ").slice(-1)}
@@ -71,7 +71,7 @@ export default async function Page({
             serverRatings={certification.ratings}
             certificationId={certification.id}
           />
-        </>
+        </SlideFade>
       )}
     </>
   );
