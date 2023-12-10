@@ -1,7 +1,7 @@
 import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
-import { Slide, SlideFade } from "@chakra-ui/react";
+import { SlideFade } from "@chakra-ui/react";
 
 export default async function Login({
   searchParams,

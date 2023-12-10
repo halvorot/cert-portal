@@ -49,13 +49,6 @@ export default function LoginForm({ message }: { message: string }) {
     }
   };
 
-  const signInProvider = async (provider: Provider) => {
-    const errorMessage = await signInWithProvider(provider);
-    if (errorMessage) {
-      setFormMessage(errorMessage);
-    }
-  };
-
   return (
     <Container maxW="lg" px={{ base: "0", sm: "8" }}>
       <Stack spacing="3">
@@ -74,7 +67,7 @@ export default function LoginForm({ message }: { message: string }) {
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGoogleTransition(() => signInProvider("google"))
+                    startSignInGoogleTransition(() => signInWithProvider("google"))
                   }
                   isLoading={signInGoogleIsPending}
                   leftIcon={<BsGoogle />}
@@ -87,7 +80,7 @@ export default function LoginForm({ message }: { message: string }) {
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGithubTransition(() => signInProvider("github"))
+                    startSignInGithubTransition(() => signInWithProvider("github"))
                   }
                   isLoading={signInGithubIsPending}
                   leftIcon={<BsGithub />}
