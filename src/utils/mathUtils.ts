@@ -1,7 +1,12 @@
 import type { RatingType } from "./types";
 
+interface Rating {
+  id: number;
+  would_take_again: boolean;
+}
+
 export function getWouldTakeAgainPercentage(
-  ratings: RatingType[],
+  ratings: Rating[],
 ): number | null {
   if (!ratings || ratings.length == 0) {
     return null;
