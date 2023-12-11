@@ -69,7 +69,7 @@ export default function InfiniteScrollCertifications({
   );
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !isPending) {
       loadMoreCertifications();
     }
   }, [inView, loadMoreCertifications]);
