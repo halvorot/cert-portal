@@ -3,8 +3,14 @@ import H2 from "@/components/H2";
 import fetchCertifications from "./actions";
 import InfiniteScrollCertifications from "@/components/InfiniteScrollCertifications";
 
-export default async function Index() {
-  const { data: certifications, error } = await fetchCertifications();
+export default async function Index({
+  searchParams,
+}: {
+  searchParams: { search: string };
+}) {
+  const { data: certifications, error } = await fetchCertifications({
+    search: searchParams.search,
+  });
 
   return (
     <div>
@@ -21,6 +27,7 @@ export default async function Index() {
           ) : (
             <InfiniteScrollCertifications
               initialCertifications={certifications ?? []}
+              search={searchParams.search}
             />
           )}
         </>

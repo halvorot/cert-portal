@@ -38,8 +38,10 @@ const item = {
 };
 
 export default function InfiniteScrollCertifications({
+  search,
   initialCertifications,
 }: {
+  search: string | undefined;
   initialCertifications: Certification[];
 }) {
   const [certifications, setCertifications] = useState<Certification[]>(
@@ -54,8 +56,7 @@ export default function InfiniteScrollCertifications({
     () =>
       startTransition(async () => {
         const nextPage = currentPage + 1;
-        console.log("loading page" + nextPage);
-        const { data, error } = await fetchCertifications(nextPage);
+        const { data, error } = await fetchCertifications({page: nextPage, search});
         if (error) {
           setError(error);
           return;

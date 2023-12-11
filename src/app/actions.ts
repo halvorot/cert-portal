@@ -16,21 +16,43 @@ interface Rating {
   would_take_again: boolean;
 }
 
-export default async function fetchCertifications(page = 0) {
+export default async function fetchCertifications({
+  page = 0,
+  search,
+}: {
+  page?: number;
+  search?: string | undefined;
+}) {
   const ITEMS_PER_PAGE = 12;
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
   const supabase = createSupabaseClient();
 
-  return await supabase
-    .from("certifications")
-    .select(
-      `
+  if (search) {
+    return await supabase
+      .from("certifications")
+      .select(
+        `
         id,
         name,
         exam_code,
         badge_image_url,
         ratings ( id, would_take_again )
         `,
+      )
+      .textSearch("name", search)
+      .order("name", { ascending: true })
+      .range(from, to);
+  }
+  return await supabase
+    .from("certifications")
+    .select(
+      `
+      id,
+      name,
+      exam_code,
+      badge_image_url,
+      ratings ( id, would_take_again )
+      `,
     )
     .order("name", { ascending: true })
     .range(from, to);

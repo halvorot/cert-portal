@@ -17,7 +17,7 @@ export default async function Login({
   return (
     <div className="flex w-full items-center justify-center">
       <SlideFade in={true} offsetY={"20px"}>
-        <LoginForm message={searchParams?.message} />
+        <LoginForm message={searchParams.message} />
       </SlideFade>
     </div>
   );
