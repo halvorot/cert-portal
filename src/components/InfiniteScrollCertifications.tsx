@@ -75,7 +75,7 @@ export default function InfiniteScrollCertifications({
   }, [inView, loadMoreCertifications]);
 
   return (
-    <Stack>
+    <Stack spacing={6}>
       <motion.ul variants={container} initial="hidden" animate="visible">
         <SimpleGrid minChildWidth="18rem" spacing="20px">
           {certifications.map((row) => (
@@ -92,7 +92,9 @@ export default function InfiniteScrollCertifications({
         </>
       )}
 
-      <Center ref={ref}>{isPending && <Spinner />}</Center>
+      <Center ref={ref}>
+        <Spinner visibility={isPending ? "visible" : "hidden"} />
+      </Center>
     </Stack>
   );
 }

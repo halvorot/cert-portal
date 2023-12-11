@@ -17,7 +17,7 @@ interface Rating {
 }
 
 export default async function fetchCertifications(page = 0) {
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = 12;
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
   const supabase = createSupabaseClient();
 
