@@ -1,13 +1,25 @@
 import Image from "next/image";
 import { getWouldTakeAgainPercentage } from "@/utils/mathUtils";
 import { BsChatRightQuote, BsArrowRepeat } from "react-icons/bs";
-import type { CertificationType } from "@/utils/types";
 import { motion } from "framer-motion";
+
+interface Certification {
+  id: number;
+  name: string;
+  exam_code: string;
+  badge_image_url?: string;
+  ratings: Rating[];
+}
+
+interface Rating {
+  id: number;
+  would_take_again: boolean;
+}
 
 export default function CertificationCard({
   certification,
 }: {
-  certification: CertificationType;
+  certification: Certification;
 }) {
   return (
     <motion.div
