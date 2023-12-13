@@ -27,7 +27,7 @@ export default async function fetchCertifications({
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
   const supabase = createSupabaseClient();
 
-  if (search) {
+  if (search && search.length > 0) {
     return await supabase
       .from("certifications")
       .select(
