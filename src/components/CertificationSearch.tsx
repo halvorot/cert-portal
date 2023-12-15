@@ -1,16 +1,12 @@
 "use client";
 import {
   Center,
-  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   SlideFade,
-  StepStatus,
 } from "@chakra-ui/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 import { BsSearch, BsX } from "react-icons/bs";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -26,7 +22,7 @@ export default function CertificationSearch() {
     } else {
       params.delete("search");
     }
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 300);
 
   return (
@@ -40,7 +36,6 @@ export default function CertificationSearch() {
             placeholder="Search for certifications by name..."
             defaultValue={searchParams.get("search")?.toString()}
             onChange={(e) => handleSearch(e.target.value)}
-            
           />
         </InputGroup>
       </Center>
