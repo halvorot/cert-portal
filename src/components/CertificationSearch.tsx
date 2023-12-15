@@ -23,7 +23,7 @@ export default function CertificationSearch() {
       params.delete("search");
     }
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, 300);
+  }, 400);
 
   return (
     <SlideFade in={true} offsetY={"20px"}>
