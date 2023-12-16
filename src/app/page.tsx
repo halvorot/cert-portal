@@ -3,6 +3,7 @@ import H2 from "@/components/H2";
 import fetchCertifications from "./actions";
 import InfiniteScrollCertifications from "@/components/InfiniteScrollCertifications";
 import CertificationSearch from "@/components/CertificationSearch";
+import { Center, Flex } from "@chakra-ui/react";
 
 export default async function Index({
   searchParams,
@@ -18,7 +19,7 @@ export default async function Index({
       <H1 preText="Welcome to" gradientText="CertPortal" animate />
       <H2 text="Browse certifications to find the best one for you" />
       <CertificationSearch />
-      <div className="flex flex-col justify-center text-center">
+      <Flex minHeight="60vh" flexDir="column" justifyContent="center" textAlign="center">
         <>
           {error ? (
             <>
@@ -35,7 +36,7 @@ export default async function Index({
             </div>
           )}
         </>
-      </div>
+      </Flex>
     </div>
   );
 }
