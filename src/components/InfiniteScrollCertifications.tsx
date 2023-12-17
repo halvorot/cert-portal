@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer";
 import fetchCertifications from "@/app/actions";
 import { motion } from "framer-motion";
 import { PostgrestError } from "@supabase/supabase-js";
+import H2 from "./H2";
 
 interface Certification {
   id: number;
@@ -56,7 +57,10 @@ export default function InfiniteScrollCertifications({
     () =>
       startTransition(async () => {
         const nextPage = currentPage + 1;
-        const { data, error } = await fetchCertifications({page: nextPage, search});
+        const { data, error } = await fetchCertifications({
+          page: nextPage,
+          search,
+        });
         if (error) {
           setError(error);
           return;
@@ -77,15 +81,21 @@ export default function InfiniteScrollCertifications({
 
   return (
     <Stack spacing={6}>
-      <motion.ul variants={container} initial="hidden" animate="visible">
-        <SimpleGrid minChildWidth="18rem" spacing="20px">
-          {certifications.map((row) => (
-            <motion.li key={row.id} variants={item}>
-              <CertificationCard certification={row} />
-            </motion.li>
-          ))}
-        </SimpleGrid>
-      </motion.ul>
+      {certifications && certifications.length > 0 ? (
+        <motion.ul variants={container} initial="hidden" animate="visible">
+          <SimpleGrid minChildWidth="18rem" spacing="20px">
+            {certifications.map((row) => (
+              <motion.li key={row.id} variants={item}>
+                <CertificationCard certification={row} />
+              </motion.li>
+            ))}
+          </SimpleGrid>
+        </motion.ul>
+      ) : (
+        <div>
+          <H2 text="No certifications found" />
+        </div>
+      )}
       {error && (
         <>
           <p>{error.message}</p>
