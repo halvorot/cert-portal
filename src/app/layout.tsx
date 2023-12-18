@@ -1,6 +1,7 @@
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { Providers } from "./providers";
+import { Container } from "@chakra-ui/react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -22,8 +23,15 @@ export default function RootLayout({
       <body>
         <Providers>
           <Nav />
-          <main id="main" className="m-auto mb-20 max-w-screen-xl p-4">
-            {children}
+          <main>
+            <Container
+              margin="auto"
+              marginBottom="5rem"
+              maxWidth="container.xl"
+              padding="1rem"
+            >
+              {children}
+            </Container>
           </main>
         </Providers>
       </body>

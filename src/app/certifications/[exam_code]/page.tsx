@@ -5,7 +5,13 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Skeleton, SkeletonText, SlideFade, Stack } from "@chakra-ui/react";
+import {
+  Flex,
+  Skeleton,
+  SkeletonText,
+  SlideFade,
+  Stack,
+} from "@chakra-ui/react";
 
 export default async function Page({
   params,
@@ -53,10 +59,16 @@ export default async function Page({
             gradientText={certification.name.split(" ").slice(-1)}
           />
 
-          <div className="mb-14 flex flex-col items-center justify-center gap-5">
+          <Flex
+            marginBottom="3.5rem"
+            flexDir="column"
+            alignItems="center"
+            justifyContent="center"
+            gap="1.25rem"
+          >
             <RatingsSummaryCard ratings={certification.ratings || []} />
             <AddRatingModal certificationId={certification.id} />
-          </div>
+          </Flex>
           {certification.description && (
             <>
               <H2 text="Description" />
