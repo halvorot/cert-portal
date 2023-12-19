@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "update-supabase-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > src/utils/types/supabase.ts"
+
   },
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
