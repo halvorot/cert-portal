@@ -4,6 +4,7 @@ export interface CertificationType {
   description?: string;
   exam_code: string;
   badge_image_url?: string;
+  url: string;
   ratings?: RatingType[];
 }
 
