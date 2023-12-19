@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "update-supabase-types": "npx supabase gen types typescript --project-id \"bpydvhufllpenvzgzbwx\" > src/utils/types/supabase.ts"
+    "update-supabase-types": "npx supabase gen types typescript --project-id \"bpydvhufllpenvzgzbwx\" > src/utils/supabase/types.ts"
 
   },
   "dependencies": {
