@@ -3,8 +3,9 @@ import H2 from "@/components/H2";
 import fetchCertifications from "./actions";
 import InfiniteScrollCertifications from "@/components/InfiniteScrollCertifications";
 import CertificationSearch from "@/components/CertificationSearch";
-import { Flex } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import { Suspense } from "react";
+import AddCertificationModal from "@/components/AddCertificationModal";
 
 export default async function Index({
   searchParams,
@@ -19,12 +20,9 @@ export default async function Index({
     <div>
       <H1 preText="Welcome to" gradientText="CertPortal" animate />
       <H2 text="Browse certifications to find the best one for you" />
+      <AddCertificationModal withIcon={false} />
       <CertificationSearch />
-      <Flex
-        minHeight="60vh"
-        flexDir="column"
-        textAlign="center"
-      >
+      <Flex minHeight="60vh" flexDir="column" textAlign="center">
         <>
           {error ? (
             <>
@@ -34,7 +32,7 @@ export default async function Index({
             </>
           ) : (
             <Suspense
-              key={searchParams?.search}
+              key={Math.random()}
               fallback="Loading certifications..."
             >
               <InfiniteScrollCertifications

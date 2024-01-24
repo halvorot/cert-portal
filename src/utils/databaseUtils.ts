@@ -2,6 +2,16 @@
 
 import { createSupabaseClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+export interface Certification {
+  name: string;
+  description?: string;
+  exam_code: string;
+  url: string;
+  badge_image_url?: string;
+  user_id: string;
+}
 
 export interface Rating {
   comment?: string;
@@ -22,8 +32,8 @@ export async function deleteRating(idToDelete: number) {
   if (error) {
     return error;
   }
-  revalidatePath("/certifications")
-};
+  revalidatePath("/certifications");
+}
 
 export async function addRating(rating: Rating) {
   const supabase = createSupabaseClient();
@@ -47,4 +57,39 @@ export async function addRating(rating: Rating) {
     return error.message;
   }
   revalidatePath(`/certifications`);
+}
+
+export async function addCertification(certification: Certification) {
+  const supabase = createSupabaseClient();
+
+  const existingCertWithExamCode = await supabase
+    .from("certifications")
+    .select()
+    .match({ exam_code: certification.exam_code })
+    .single();
+
+  if (existingCertWithExamCode.data) {
+    return `A certification with exam code '${certification.exam_code}' already exists`;
+  }
+
+  const { error } = await supabase.from("certifications").insert(certification);
+
+  if (error) {
+    console.log(error.message);
+    return error.message;
+  }
+  revalidatePath("/")
+}
+
+export async function deleteCertification(idToDelete: number) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("certifications")
+    .delete()
+    .match({ id: idToDelete });
+  if (error) {
+    return error;
+  }
+  revalidatePath("/");
+  redirect("/");
 }
