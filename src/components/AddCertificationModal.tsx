@@ -23,7 +23,6 @@ import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
 import { Certification, addCertification } from "@/utils/databaseUtils";
-import { useRouter } from "next/navigation";
 
 export default function AddCertificationModal({
   withIcon = true,

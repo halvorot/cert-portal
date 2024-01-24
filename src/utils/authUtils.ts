@@ -73,7 +73,7 @@ export async function signOut() {
 
   await supabase.auth.signOut();
 
-  return redirect("/");
+  redirect("/");
 }
 
 export async function readUserSession() {
