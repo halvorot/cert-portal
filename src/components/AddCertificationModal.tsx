@@ -23,7 +23,7 @@ import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
 import { Certification, addCertification } from "@/utils/databaseUtils";
-import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 
 export default function AddCertificationModal({
   withIcon = true,
@@ -36,6 +36,7 @@ export default function AddCertificationModal({
     undefined,
   );
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -70,8 +71,6 @@ export default function AddCertificationModal({
       setErrorMessage(errorMessage);
       return;
     }
-
-    revalidatePath("/");
 
     onClose();
   };
