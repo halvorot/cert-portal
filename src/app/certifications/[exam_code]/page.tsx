@@ -5,13 +5,8 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import {
-  Flex,
-  Skeleton,
-  SkeletonText,
-  SlideFade,
-  Stack,
-} from "@chakra-ui/react";
+import { Flex, SlideFade, Stack } from "@chakra-ui/react";
+import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 
 export default async function Page({
   params,
@@ -29,6 +24,7 @@ export default async function Page({
         description,
         exam_code,
         badge_image_url,
+        user_id,
         ratings ( id, comment, overall, difficulty, usefulness, would_take_again, certification, user_id )`,
     )
     .eq("exam_code", exam_code)
@@ -50,6 +46,10 @@ export default async function Page({
     );
   }
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <>
       {certification && (
@@ -66,6 +66,9 @@ export default async function Page({
             justifyContent="center"
             gap="1.25rem"
           >
+            {user && user.id === certification.user_id && (
+              <DeleteCertificationButton certification_id={certification.id} />
+            )}
             <RatingsSummaryCard ratings={certification.ratings || []} />
             <AddRatingModal certificationId={certification.id} />
           </Flex>

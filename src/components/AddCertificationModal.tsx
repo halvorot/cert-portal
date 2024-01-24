@@ -36,7 +36,6 @@ export default function AddCertificationModal({
     undefined,
   );
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -63,6 +62,7 @@ export default function AddCertificationModal({
       description: formData.get("description") as string,
       url: formData.get("url") as string,
       badge_image_url: formData.get("image_url") as string,
+      user_id: user.id
     };
 
     const errorMessage = await addCertification(certification);

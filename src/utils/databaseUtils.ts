@@ -2,6 +2,7 @@
 
 import { createSupabaseClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export interface Certification {
   name: string;
@@ -9,6 +10,7 @@ export interface Certification {
   exam_code: string;
   url: string;
   badge_image_url?: string;
+  user_id: string;
 }
 
 export interface Rating {
@@ -76,4 +78,18 @@ export async function addCertification(certification: Certification) {
     console.log(error.message);
     return error.message;
   }
+  revalidatePath("/")
+}
+
+export async function deleteCertification(idToDelete: number) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("certifications")
+    .delete()
+    .match({ id: idToDelete });
+  if (error) {
+    return error;
+  }
+  revalidatePath("/");
+  redirect("/");
 }

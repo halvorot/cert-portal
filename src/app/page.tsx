@@ -32,7 +32,7 @@ export default async function Index({
             </>
           ) : (
             <Suspense
-              key={searchParams?.search}
+              key={Math.random()}
               fallback="Loading certifications..."
             >
               <InfiniteScrollCertifications
