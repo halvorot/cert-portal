@@ -99,7 +99,6 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
                     onClick={() => deleteRating(rating.id)}
                     aria-label="Delete rating"
                     icon={<BsTrash3 />}
-                    variant="ghost"
                     fontSize="1rem"
                   />
                 </Tooltip>
