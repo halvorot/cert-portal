@@ -62,7 +62,7 @@ export default function AddRatingModal({
 
     const rating: Rating = {
       overall: Number(formData.get("overall")),
-      difficulty: Number(formData.get("difficulty")),
+      easiness: Number(formData.get("easiness")),
       usefulness: Number(formData.get("usefulness")),
       comment: formData.get("comment") as string,
       would_take_again: Boolean(formData.get("would-take-again")),
@@ -129,11 +129,11 @@ export default function AddRatingModal({
                   </FormControl>
                   <FormControl>
                     <FormLabel>
-                      Difficulty ({MIN_SCORE}-{MAX_SCORE})
+                      Easiness ({MIN_SCORE}-{MAX_SCORE})
                     </FormLabel>
                     <Slider
-                      name="difficulty"
-                      aria-label="Difficulty"
+                      name="easiness"
+                      aria-label="Easiness"
                       defaultValue={3}
                       min={MIN_SCORE}
                       max={MAX_SCORE}

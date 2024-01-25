@@ -46,8 +46,8 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
             variant="slim"
           />
           <RatingsBar
-            label="Difficulty"
-            score={rating.difficulty}
+            label="Easiness"
+            score={rating.easiness}
             minScore={MIN_SCORE}
             maxScore={MAX_SCORE}
             variant="slim"

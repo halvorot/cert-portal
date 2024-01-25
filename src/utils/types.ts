@@ -12,7 +12,7 @@ export interface RatingType {
   id: number;
   comment?: string;
   overall: number;
-  difficulty: number;
+  easiness: number;
   usefulness: number;
   would_take_again: boolean;
   certification: number;

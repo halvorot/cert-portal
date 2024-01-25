@@ -45,8 +45,8 @@ export default function RatingsSummaryCard({
               </HStack>
             </HStack>
             <RatingsBar
-              label="Difficulty"
-              score={getAverage(ratings.map((rating) => rating.difficulty))}
+              label="Easiness"
+              score={getAverage(ratings.map((rating) => rating.easiness))}
               minScore={MIN_SCORE}
               maxScore={MAX_SCORE}
             />
