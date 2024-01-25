@@ -3,7 +3,7 @@ import H2 from "@/components/H2";
 import fetchCertifications from "./actions";
 import InfiniteScrollCertifications from "@/components/InfiniteScrollCertifications";
 import CertificationSearch from "@/components/CertificationSearch";
-import { Center, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Suspense } from "react";
 import AddCertificationModal from "@/components/AddCertificationModal";
 
