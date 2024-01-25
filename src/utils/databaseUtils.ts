@@ -62,6 +62,19 @@ export async function addRating(rating: Rating) {
 export async function addCertification(certification: Certification) {
   const supabase = createSupabaseClient();
 
+  if (certification.name.trim().length === 0) {
+    return "Name cannot be empty.";
+  }
+  if (certification.exam_code.trim().length === 0) {
+    return "Exam code cannot be empty.";
+  }
+  if (certification.url.trim().length === 0) {
+    return "URL cannot be empty.";
+  }
+  if (certification.user_id.trim().length === 0) {
+    return "User must be defines. Make sure you're logged in correctly.";
+  }
+  
   const existingCertWithExamCode = await supabase
     .from("certifications")
     .select()
@@ -78,7 +91,7 @@ export async function addCertification(certification: Certification) {
     console.log(error.message);
     return error.message;
   }
-  revalidatePath("/")
+  revalidatePath("/");
 }
 
 export async function deleteCertification(idToDelete: number) {

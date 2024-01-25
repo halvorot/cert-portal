@@ -1,6 +1,6 @@
 "use client"
 import { deleteCertification } from "@/utils/databaseUtils";
-import { Button, IconButton, Tooltip } from "@chakra-ui/react";
+import { Button, Tooltip } from "@chakra-ui/react";
 import React from "react";
 import { BsTrash3 } from "react-icons/bs";
 

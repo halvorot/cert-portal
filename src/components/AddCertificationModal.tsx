@@ -60,7 +60,6 @@ export default function AddCertificationModal({
       name: formData.get("name") as string,
       description: formData.get("description") as string,
       url: formData.get("url") as string,
-      badge_image_url: formData.get("image_url") as string,
       user_id: user.id
     };
 
