@@ -20,8 +20,7 @@ export default function RatingsSummaryCard({
 }: {
   ratings: RatingType[];
 }) {
-  const averageOverallScore = 3;
-  // ratings.reduce((total, next) => total + next.overall, 0) / ratings.length;
+  const averageOverallScore = getAverage(ratings.map(rating => rating.overall));
 
   const wouldTakeAgainPercentage = getWouldTakeAgainPercentage(ratings);
 
@@ -61,19 +60,14 @@ export default function RatingsSummaryCard({
               colorScheme="green"
               textAlign="center"
               color={
-                wouldTakeAgainPercentage && wouldTakeAgainPercentage < 50
+                wouldTakeAgainPercentage != null && wouldTakeAgainPercentage < 50
                   ? "#dc2626"
                   : "#16a34a"
               }
               fontWeight="bold"
             >
-              {ratings.length > 0 &&
-                wouldTakeAgainPercentage &&
-                (wouldTakeAgainPercentage < 50
-                  ? (100 - wouldTakeAgainPercentage).toFixed(0) +
-                    "% would NOT take again!"
-                  : wouldTakeAgainPercentage.toFixed(0) +
-                    "% would take again!")}
+              {wouldTakeAgainPercentage != null &&
+                wouldTakeAgainPercentage.toFixed(0) + "% would take again!"}
             </Text>
           </Stack>
         ) : (
