@@ -7,7 +7,7 @@ import {
   SlideFade,
 } from "@chakra-ui/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { BsSearch, BsX } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function CertificationSearch() {
