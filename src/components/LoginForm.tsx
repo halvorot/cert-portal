@@ -169,7 +169,7 @@ export default function LoginForm({ message }: { message: string }) {
                 >
                   Sign up
                 </Button>
-                {formMessage && <Text textAlign="center">{formMessage}</Text>}
+                {formMessage && <Text textAlign="center" color="red">{formMessage}</Text>}
               </Stack>
             </form>
           </Stack>
