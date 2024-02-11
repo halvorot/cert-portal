@@ -12,7 +12,7 @@ export default async function ResetPassword({
 
   if (searchParams.code) {
     const supabase = createSupabaseClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(searchParams.code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(searchParams.code);
     if (error) {
       return redirect(`/login?message=${error.message}`);
     }
@@ -27,7 +27,7 @@ export default async function ResetPassword({
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        {data.session?.user.email ? (
+        {data.session.user.email ? (
           <ResetPasswordForm email={data.session.user.email} />
         ) : (
           <Text>
