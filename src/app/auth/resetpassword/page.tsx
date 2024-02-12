@@ -1,8 +1,7 @@
 import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import ResetPasswordForm from "@/components/ResetPasswordForm";
-import { Flex, Text, SlideFade } from "@chakra-ui/react";
-import { createSupabaseClient } from "@/utils/supabase/client";
+import { Flex, SlideFade } from "@chakra-ui/react";
 
 export default async function ResetPassword() {
   const { data } = await readUserSession();
