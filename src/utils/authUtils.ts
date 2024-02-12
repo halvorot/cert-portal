@@ -81,8 +81,13 @@ export async function sendResetPasswordLink(email: string) {
     console.log(error.message);
     return `Could send link to reset password: ${error.message}`;
   } else {
-    const message = "Link to reset password was sent to:\n" + email + "\nMake sure to check your spam folder";
-    return redirect(`/login?message=${message}`);
+    return redirect(
+      `/login?message=${
+        "Link to reset password was sent to: " +
+        email +
+        ". Make sure to check your spam folder"
+      }`,
+    );
   }
 }
 
