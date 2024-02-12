@@ -23,7 +23,13 @@ import {
 } from "@/utils/authUtils";
 import Link from "next/link";
 
-export default function LoginForm({ message }: { message: string }) {
+export default function LoginForm({
+  message,
+  messageColor,
+}: {
+  message: string;
+  messageColor: string;
+}) {
   const [emailFieldValue, setEmailFieldValue] = useState<string | undefined>();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formMessage, setFormMessage] = useState<string | undefined>(message);
@@ -112,12 +118,19 @@ export default function LoginForm({ message }: { message: string }) {
                     id="email"
                     name="email"
                     type="email"
-                    onChange={(event) => setEmailFieldValue(event.currentTarget.value)}
+                    onChange={(event) =>
+                      setEmailFieldValue(event.currentTarget.value)
+                    }
                     value={emailFieldValue}
                   />
                 </FormControl>
                 <PasswordField />
-                <Link href={"/auth/forgotpassword" + (emailFieldValue ? `?email=${emailFieldValue}` : "")}>
+                <Link
+                  href={
+                    "/auth/forgotpassword" +
+                    (emailFieldValue ? `?email=${emailFieldValue}` : "")
+                  }
+                >
                   <Text as="u" color="lightgray">
                     Forgot password?
                   </Text>
@@ -169,7 +182,11 @@ export default function LoginForm({ message }: { message: string }) {
                 >
                   Sign up
                 </Button>
-                {formMessage && <Text textAlign="center" color="red">{formMessage}</Text>}
+                {formMessage && (
+                  <Text textAlign="center" color={messageColor ?? "red"}>
+                    {formMessage}
+                  </Text>
+                )}
               </Stack>
             </form>
           </Stack>
