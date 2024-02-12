@@ -81,7 +81,7 @@ export async function sendResetPasswordLink(email: string) {
     console.log(error.message);
     return `Could send link to reset password: ${error.message}`;
   } else {
-    return redirect(`/login?message=${"Link to reset password was sent to" + email}`);
+    return redirect(`/login?message=${"Link to reset password was sent to " + email}`);
   }
 }
 
