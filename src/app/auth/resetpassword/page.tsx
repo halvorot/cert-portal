@@ -4,29 +4,19 @@ import ResetPasswordForm from "@/components/ResetPasswordForm";
 import { Flex, Text, SlideFade } from "@chakra-ui/react";
 import { createSupabaseClient } from "@/utils/supabase/client";
 
-export default async function ResetPassword({
-  searchParams,
-}: {
-  searchParams: { code: string };
-}) {
-
+export default async function ResetPassword() {
   const { data } = await readUserSession();
 
   if (!data.session) {
-    const message = "Could not reset password, make sure you are using the correct link";
-    redirect(`/login?message=${message}`)
+    const message =
+      "Could access reset password page, make sure you are using an authorized link";
+    redirect(`/login?message=${message}`);
   }
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        {data.session.user.email ? (
-          <ResetPasswordForm email={data.session.user.email} />
-        ) : (
-          <Text>
-            Cannot reset password, make sure you're using the correct link
-          </Text>
-        )}
+        <ResetPasswordForm email={data.session.user.email ?? "UNKNOWN"} />
       </SlideFade>
     </Flex>
   );
