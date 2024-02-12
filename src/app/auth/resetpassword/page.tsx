@@ -10,13 +10,6 @@ export default async function ResetPassword({
   searchParams: { code: string };
 }) {
 
-  if (searchParams.code) {
-    const supabase = createSupabaseClient();
-    const { data, error } = await supabase.auth.exchangeCodeForSession(searchParams.code);
-    if (error) {
-      return redirect(`/login?message=${error.message}`);
-    }
-  }
   const { data } = await readUserSession();
 
   if (!data.session) {

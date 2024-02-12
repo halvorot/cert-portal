@@ -74,14 +74,14 @@ export async function sendResetPasswordLink(email: string) {
   const supabase = createSupabaseClient();
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/resetpassword`,
+    redirectTo: `${origin}/auth/callback?next=/auth/resetpassword`,
   });
 
   if (error) {
     console.log(error.message);
     return `Could send link to reset password: ${error.message}`;
   } else {
-    return redirect("/login");
+    return redirect(`/login?message=${"Link to reset password was sent to" + email}`);
   }
 }
 
