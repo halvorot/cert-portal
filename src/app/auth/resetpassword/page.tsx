@@ -1,23 +1,21 @@
 import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
-import LoginForm from "@/components/LoginForm";
+import ResetPasswordForm from "@/components/ResetPasswordForm";
 import { Flex, SlideFade } from "@chakra-ui/react";
 
-export default async function Login({
-  searchParams,
-}: {
-  searchParams: { message: string, messageColor: string };
-}) {
+export default async function ResetPassword() {
   const { data } = await readUserSession();
 
-  if (data.session) {
-    return redirect("/");
+  if (!data.session) {
+    const message =
+      "Could access reset password page, make sure you are using an authorized link";
+    redirect(`/login?message=${message}`);
   }
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        <LoginForm message={searchParams.message} messageColor={searchParams.messageColor} />
+        <ResetPasswordForm email={data.session.user.email ?? "UNKNOWN"} />
       </SlideFade>
     </Flex>
   );

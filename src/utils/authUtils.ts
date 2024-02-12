@@ -4,6 +4,7 @@ import { createSupabaseClient } from "@/utils/supabase/server";
 import { Provider } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { escape } from "querystring";
 
 export async function signUpWithEmailAndPassword(
   email: string,
@@ -65,6 +66,41 @@ export async function signInWithProvider(provider: Provider) {
     return redirect(`/login?message=${error.message}`);
   } else {
     return redirect(data.url);
+  }
+}
+
+export async function sendResetPasswordLink(email: string) {
+  const origin = headers().get("origin");
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/auth/resetpassword`,
+  });
+
+  if (error) {
+    console.log(error.message);
+    return `Could send link to reset password: ${error.message}`;
+  } else {
+    return redirect(
+      `/login?messageColor=green&message=${
+        "Link to reset password was sent to: " +
+        email +
+        ". Make sure to check your spam folder"
+      }`,
+    );
+  }
+}
+
+export async function updateUser(newPassord: string) {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassord,
+  });
+  if (error) {
+    console.log(error.message);
+    return `Could not reset password: ${error.message}`;
+  } else {
+    return redirect("/login");
   }
 }
 

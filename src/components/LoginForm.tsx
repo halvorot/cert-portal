@@ -21,8 +21,16 @@ import {
   signInWithProvider,
   signUpWithEmailAndPassword,
 } from "@/utils/authUtils";
+import Link from "next/link";
 
-export default function LoginForm({ message }: { message: string }) {
+export default function LoginForm({
+  message,
+  messageColor,
+}: {
+  message: string;
+  messageColor: string;
+}) {
+  const [emailFieldValue, setEmailFieldValue] = useState<string | undefined>();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formMessage, setFormMessage] = useState<string | undefined>(message);
   const [signInIsPending, startSignInTransition] = useTransition();
@@ -66,7 +74,9 @@ export default function LoginForm({ message }: { message: string }) {
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGoogleTransition(() => signInWithProvider("google"))
+                    startSignInGoogleTransition(() =>
+                      signInWithProvider("google"),
+                    )
                   }
                   isLoading={signInGoogleIsPending}
                   leftIcon={<BsGoogle />}
@@ -79,7 +89,9 @@ export default function LoginForm({ message }: { message: string }) {
                 <Button
                   type="submit"
                   formAction={() =>
-                    startSignInGithubTransition(() => signInWithProvider("github"))
+                    startSignInGithubTransition(() =>
+                      signInWithProvider("github"),
+                    )
                   }
                   isLoading={signInGithubIsPending}
                   leftIcon={<BsGithub />}
@@ -102,11 +114,29 @@ export default function LoginForm({ message }: { message: string }) {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input id="email" name="email" type="email" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    onChange={(event) =>
+                      setEmailFieldValue(event.currentTarget.value)
+                    }
+                    value={emailFieldValue}
+                  />
                 </FormControl>
                 <PasswordField />
+                <Link
+                  href={
+                    "/auth/forgotpassword" +
+                    (emailFieldValue ? `?email=${emailFieldValue}` : "")
+                  }
+                >
+                  <Text as="u" color="lightgray">
+                    Forgot password?
+                  </Text>
+                </Link>
                 {isSignUp ? (
-                  <Text color="fg.muted">
+                  <Text color={"lightgray"}>
                     Already have an account?{" "}
                     <Text
                       onClick={() => setIsSignUp(false)}
@@ -119,7 +149,7 @@ export default function LoginForm({ message }: { message: string }) {
                     </Text>
                   </Text>
                 ) : (
-                  <Text color="fg.muted">
+                  <Text color="lightgray">
                     Don't have an account?{" "}
                     <Text
                       onClick={() => setIsSignUp(true)}
@@ -152,7 +182,11 @@ export default function LoginForm({ message }: { message: string }) {
                 >
                   Sign up
                 </Button>
-                {formMessage && <Text textAlign="center">{formMessage}</Text>}
+                {formMessage && (
+                  <Text textAlign="center" color={messageColor ?? "red"}>
+                    {formMessage}
+                  </Text>
+                )}
               </Stack>
             </form>
           </Stack>

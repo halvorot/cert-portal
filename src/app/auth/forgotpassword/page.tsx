@@ -1,23 +1,19 @@
 import { readUserSession } from "@/utils/authUtils";
-import { redirect } from "next/navigation";
-import LoginForm from "@/components/LoginForm";
 import { Flex, SlideFade } from "@chakra-ui/react";
+import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 
-export default async function Login({
+export default async function ForgotPassword({
   searchParams,
 }: {
-  searchParams: { message: string, messageColor: string };
+  searchParams: { email: string };
 }) {
   const { data } = await readUserSession();
-
-  if (data.session) {
-    return redirect("/");
-  }
+  const email = searchParams?.email;
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        <LoginForm message={searchParams.message} messageColor={searchParams.messageColor} />
+        <ForgotPasswordForm preFilledEmail={email ?? data.session?.user.email} />
       </SlideFade>
     </Flex>
   );
