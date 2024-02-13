@@ -123,13 +123,3 @@ export async function deleteCertification(idToDelete: number) {
   revalidatePath("/");
   redirect("/");
 }
-
-export async function uploadCertificationBadgeImage(
-  path: string,
-  formData: FormData,
-) {
-  const supabase = createSupabaseClient();
-  return await supabase.storage
-    .from("certification-badges")
-    .upload(path, formData.get("badge_image") as File);
-}

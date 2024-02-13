@@ -26,10 +26,10 @@ import { User } from "@supabase/supabase-js";
 import {
   Certification,
   addCertification,
-  uploadCertificationBadgeImage,
 } from "@/utils/databaseUtils";
 import slugify from "slugify";
 import { CERTIFICATION_BADGES_BUCKET_URL } from "@/utils/constants";
+import { createSupabaseClient } from "@/utils/supabase/client";
 
 export default function AddCertificationModal({
   withIcon = true,
@@ -72,16 +72,16 @@ export default function AddCertificationModal({
 
     if ((formData.get("badge_image") as File).size > 0) {
       const filePath = user.id + "/badge-" + slugify(certification.name);
-      const { data, error } = await uploadCertificationBadgeImage(
-        filePath,
-        formData,
-      );
+      const supabase = createSupabaseClient();
+      const { data, error } = await supabase.storage
+        .from("certification-badges")
+        .upload(filePath, formData.get("badge_image") as File);
+
       if (error) {
         setErrorMessage(error.message);
         return;
       }
-      certification.badge_image_url =
-        CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
+      certification.badge_image_url = CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
     }
 
     const errorMessage = await addCertification(certification);
