@@ -96,6 +96,23 @@ export async function addCertification(certification: Certification) {
 
 export async function deleteCertification(idToDelete: number) {
   const supabase = createSupabaseClient();
+  const certification = await supabase
+    .from("certifications")
+    .select(
+      `
+      id,
+      badge_image_url
+      `,
+    )
+    .match({ id: idToDelete })
+    .single();
+  const { error: deleteImageError } = await supabase
+    .storage
+    .from("certification-badges")
+    .remove([certification.data?.badge_image_url.split('certification-badges/')[1]]);
+  if (deleteImageError) {
+    return deleteImageError;
+  }
   const { error } = await supabase
     .from("certifications")
     .delete()
@@ -107,8 +124,12 @@ export async function deleteCertification(idToDelete: number) {
   redirect("/");
 }
 
-export async function uploadCertificationBadgeImage(path: string, formData: FormData) {
+export async function uploadCertificationBadgeImage(
+  path: string,
+  formData: FormData,
+) {
   const supabase = createSupabaseClient();
-  console.log("uploaing to path " + path)
-  return await supabase.storage.from("certification-badges").upload(path, formData.get("badge_image") as File);
+  return await supabase.storage
+    .from("certification-badges")
+    .upload(path, formData.get("badge_image") as File);
 }
