@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useTransition } from "react";
+import ResizeTextarea from "react-textarea-autosize";
 import { BsPlusCircle } from "react-icons/bs";
 import {
   Text,
@@ -148,6 +149,8 @@ export default function AddCertificationModal({
                       <Textarea
                         name="description"
                         placeholder="Write a description of the certification in Markdown formatting..."
+                        minRows={6}
+                        as={ResizeTextarea}
                       />
                     </Stack>
                     <FormControl>
