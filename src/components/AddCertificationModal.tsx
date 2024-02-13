@@ -22,7 +22,13 @@ import {
 import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
-import { Certification, addCertification } from "@/utils/databaseUtils";
+import {
+  Certification,
+  addCertification,
+  uploadCertificationBadgeImage,
+} from "@/utils/databaseUtils";
+import slugify from "slugify";
+import { CERTIFICATION_BADGES_BUCKET_URL } from "@/utils/constants";
 
 export default function AddCertificationModal({
   withIcon = true,
@@ -45,7 +51,7 @@ export default function AddCertificationModal({
     };
 
     checkUser().catch(console.error);
-  }, [readUserSession]);
+  }, [readUserSession, setUser]);
 
   const handleAddCertification = async (formData: FormData) => {
     if (!user) {
@@ -60,8 +66,22 @@ export default function AddCertificationModal({
       name: formData.get("name") as string,
       description: formData.get("description") as string,
       url: formData.get("url") as string,
-      user_id: user.id
+      user_id: user.id,
     };
+
+    if (formData.get("badge_image")) {
+      const filePath = user.id + "/badge-" + slugify(certification.name);
+      const { data, error } = await uploadCertificationBadgeImage(
+        filePath,
+        formData,
+      );
+      if (error) {
+        setErrorMessage(error.message);
+        return;
+      }
+      console.log("path: " + data.path);
+      certification.badge_image_url = CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
+    }
 
     const errorMessage = await addCertification(certification);
 
@@ -103,11 +123,11 @@ export default function AddCertificationModal({
                   }
                 >
                   <Stack spacing="1rem">
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>Name</FormLabel>
                       <Input id="name" name="name" placeholder="Name" />
                     </FormControl>
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>Exam Code</FormLabel>
                       <Input
                         id="exam_code"
@@ -115,7 +135,7 @@ export default function AddCertificationModal({
                         placeholder="Exam Code"
                       />
                     </FormControl>
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>URL</FormLabel>
                       <Input
                         id="url"
@@ -130,6 +150,10 @@ export default function AddCertificationModal({
                         placeholder="Write a description of the certification in Markdown formatting..."
                       />
                     </Stack>
+                    <FormControl>
+                      <FormLabel>Badge image</FormLabel>
+                      <Input id="badge_image" name="badge_image" type="file" />
+                    </FormControl>
                     <Button type="submit" isLoading={isPending}>
                       Add certification
                     </Button>
