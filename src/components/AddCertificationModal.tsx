@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useTransition } from "react";
+import ResizeTextarea from "react-textarea-autosize";
 import { BsPlusCircle } from "react-icons/bs";
 import {
   Text,
@@ -22,7 +23,13 @@ import {
 import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
-import { Certification, addCertification } from "@/utils/databaseUtils";
+import {
+  Certification,
+  addCertification,
+} from "@/utils/databaseUtils";
+import slugify from "slugify";
+import { CERTIFICATION_BADGES_BUCKET_URL } from "@/utils/constants";
+import { createSupabaseClient } from "@/utils/supabase/client";
 
 export default function AddCertificationModal({
   withIcon = true,
@@ -45,7 +52,7 @@ export default function AddCertificationModal({
     };
 
     checkUser().catch(console.error);
-  }, [readUserSession]);
+  }, [readUserSession, setUser]);
 
   const handleAddCertification = async (formData: FormData) => {
     if (!user) {
@@ -60,8 +67,22 @@ export default function AddCertificationModal({
       name: formData.get("name") as string,
       description: formData.get("description") as string,
       url: formData.get("url") as string,
-      user_id: user.id
+      user_id: user.id,
     };
+
+    if ((formData.get("badge_image") as File).size > 0) {
+      const filePath = user.id + "/badge-" + slugify(certification.name);
+      const supabase = createSupabaseClient();
+      const { data, error } = await supabase.storage
+        .from("certification-badges")
+        .upload(filePath, formData.get("badge_image") as File);
+
+      if (error) {
+        setErrorMessage(error.message);
+        return;
+      }
+      certification.badge_image_url = CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
+    }
 
     const errorMessage = await addCertification(certification);
 
@@ -103,11 +124,11 @@ export default function AddCertificationModal({
                   }
                 >
                   <Stack spacing="1rem">
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>Name</FormLabel>
                       <Input id="name" name="name" placeholder="Name" />
                     </FormControl>
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>Exam Code</FormLabel>
                       <Input
                         id="exam_code"
@@ -115,7 +136,7 @@ export default function AddCertificationModal({
                         placeholder="Exam Code"
                       />
                     </FormControl>
-                    <FormControl>
+                    <FormControl isRequired>
                       <FormLabel>URL</FormLabel>
                       <Input
                         id="url"
@@ -128,8 +149,14 @@ export default function AddCertificationModal({
                       <Textarea
                         name="description"
                         placeholder="Write a description of the certification in Markdown formatting..."
+                        minRows={6}
+                        as={ResizeTextarea}
                       />
                     </Stack>
+                    <FormControl>
+                      <FormLabel>Badge image</FormLabel>
+                      <Input id="badge_image" name="badge_image" type="file" />
+                    </FormControl>
                     <Button type="submit" isLoading={isPending}>
                       Add certification
                     </Button>

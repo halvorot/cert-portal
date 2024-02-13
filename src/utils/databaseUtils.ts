@@ -74,7 +74,7 @@ export async function addCertification(certification: Certification) {
   if (certification.user_id.trim().length === 0) {
     return "User must be defines. Make sure you're logged in correctly.";
   }
-  
+
   const existingCertWithExamCode = await supabase
     .from("certifications")
     .select()
@@ -96,6 +96,23 @@ export async function addCertification(certification: Certification) {
 
 export async function deleteCertification(idToDelete: number) {
   const supabase = createSupabaseClient();
+  const certification = await supabase
+    .from("certifications")
+    .select(
+      `
+      id,
+      badge_image_url
+      `,
+    )
+    .match({ id: idToDelete })
+    .single();
+  const { error: deleteImageError } = await supabase
+    .storage
+    .from("certification-badges")
+    .remove([certification.data?.badge_image_url.split('certification-badges/')[1]]);
+  if (deleteImageError) {
+    return deleteImageError;
+  }
   const { error } = await supabase
     .from("certifications")
     .delete()
