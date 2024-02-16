@@ -23,7 +23,7 @@ export default async function fetchCertifications({
   page?: number;
   search?: string | undefined;
 }) {
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 20;
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
   const supabase = createSupabaseClient();
 
