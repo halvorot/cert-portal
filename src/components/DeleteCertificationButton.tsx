@@ -1,6 +1,6 @@
 "use client";
 import { deleteCertification } from "@/utils/databaseUtils";
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Toast, Tooltip, useDisclosure, useToast } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import { BsTrash3 } from "react-icons/bs";
 
@@ -11,6 +11,29 @@ export default function DeleteCertificationButton({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
+  const toast = useToast();
+
+  const handleDeleteCertification = async (certificationId: number) => {
+    const error = await deleteCertification(certification_id);
+    error ? (
+      toast({
+        title: 'An error occurred',
+        description: "Could not delete certification. " + error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    ) : (
+      toast({
+        title: 'Certification deleted',
+        description: "The certification was deleted successfully.",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+    )
+    onClose();
+  }
 
   return (
     <>
@@ -46,10 +69,7 @@ export default function DeleteCertificationButton({
               </Button>
               <Button
                 colorScheme="red"
-                onClick={() => {
-                  deleteCertification(certification_id);
-                  onClose();
-                }}
+                onClick={() => handleDeleteCertification(certification_id)}
                 ml={3}
                 textColor="red"
               >

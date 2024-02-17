@@ -106,19 +106,22 @@ export async function deleteCertification(idToDelete: number) {
     )
     .match({ id: idToDelete })
     .single();
-  const { error: deleteImageError } = await supabase
-    .storage
-    .from("certification-badges")
-    .remove([certification.data?.badge_image_url.split('certification-badges/')[1]]);
-  if (deleteImageError) {
-    return deleteImageError;
+  if (certification.data?.badge_image_url) {
+    const { error } = await supabase.storage
+      .from("certification-badges")
+      .remove([
+        certification.data.badge_image_url.split("certification-badges/")[1],
+      ]);
+    if (error) {
+      return error.message;
+    }
   }
   const { error } = await supabase
     .from("certifications")
     .delete()
     .match({ id: idToDelete });
   if (error) {
-    return error;
+    return error.message;
   }
   revalidatePath("/");
   redirect("/");
