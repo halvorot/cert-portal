@@ -5,7 +5,7 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Center, Flex, Icon, SlideFade, Stack } from "@chakra-ui/react";
+import { Center, Flex, Text, SlideFade, Stack } from "@chakra-ui/react";
 import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 import Image from "next/image";
 import Link from "next/link";
@@ -79,9 +79,9 @@ export default async function Page({
             marginBottom={"2rem"}
             gap={1}
           >
-            <BsLink45Deg />
-            <Link href={certification.url} as='u'>
-              {certification.url}
+            <Link href={certification.url}>
+              <BsLink45Deg />
+              <Text as="u">{certification.url}</Text>
             </Link>
           </Flex>
           <Flex
