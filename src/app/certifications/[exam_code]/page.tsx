@@ -54,6 +54,8 @@ export default async function Page({
     data: { user },
   } = await supabase.auth.getUser();
 
+  const certificationNameWordList = certification.name.split(" ");
+
   return (
     <>
       {certification && (
@@ -70,8 +72,8 @@ export default async function Page({
             </Center>
           )}
           <H1
-            preText={certification.name.split(" ").slice(0, -1).join(" ")}
-            gradientText={certification.name.split(" ").slice(-1)}
+            preText={certificationNameWordList.slice(0, certificationNameWordList.length/2).join(" ")}
+            gradientText={certificationNameWordList.slice(certificationNameWordList.length/2).join(" ")}
           />
 
           <Link href={certification.url}>
