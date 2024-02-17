@@ -30,7 +30,7 @@ export async function deleteRating(idToDelete: number) {
     .delete()
     .match({ id: idToDelete });
   if (error) {
-    return error;
+    return error.message;
   }
   revalidatePath("/certifications");
 }

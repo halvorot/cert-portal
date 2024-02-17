@@ -14,14 +14,17 @@ import {
   Text,
   Tooltip,
   useBoolean,
+  useToast,
 } from "@chakra-ui/react";
 import { createSupabaseClient } from "@/utils/supabase/client";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useTransition } from "react";
 import { deleteRating } from "@/utils/databaseUtils";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   const [isExpanded, setIsExpanded] = useBoolean();
   const [userId, setUserId] = useState<string | undefined>(undefined);
+  const [isPending, startTransition] = useTransition();
+  const toast = useToast();
 
   const supabase = createSupabaseClient();
 
@@ -33,6 +36,27 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
 
     getUserFromSupabase().catch(console.error);
   }, [supabase]);
+
+  const handleDeleteRating = async (ratingId: number) => {
+    const error = await deleteRating(ratingId);
+    error ? (
+      toast({
+        title: 'An error occurred',
+        description: "Could not delete rating. " + error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    ) : (
+      toast({
+        title: 'Rating deleted',
+        description: "The rating was deleted successfully.",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+    )
+  }
 
   return (
     <Card>
@@ -96,7 +120,8 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
               <Flex justifyContent="end">
                 <Tooltip label="Delete rating" placement="auto" float="right">
                   <IconButton
-                    onClick={() => deleteRating(rating.id)}
+                    onClick={() => startTransition(() => handleDeleteRating(rating.id))}
+                    isLoading={isPending}
                     aria-label="Delete rating"
                     icon={<BsTrash3 />}
                     fontSize="1rem"
