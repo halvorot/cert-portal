@@ -73,17 +73,18 @@ export default async function Page({
             preText={certification.name.split(" ").slice(0, -1).join(" ")}
             gradientText={certification.name.split(" ").slice(-1)}
           />
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-            marginBottom={"2rem"}
-            gap={1}
-          >
-            <Link href={certification.url}>
-              <BsLink45Deg />
-              <Text as="u">{certification.url}</Text>
-            </Link>
-          </Flex>
+
+          <Link href={certification.url}>
+            <Flex
+              justifyContent={"center"}
+              alignItems={"center"}
+              marginBottom={"2rem"}
+              gap={1}
+            >
+              <BsLink45Deg color="#93c5fd"/>
+              <Text as="u" color={"#93c5fd"}>{certification.url}</Text>
+            </Flex>
+          </Link>
           <Flex
             marginBottom="3.5rem"
             flexDir="column"
