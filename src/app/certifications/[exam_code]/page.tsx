@@ -5,8 +5,11 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Flex, SlideFade, Stack } from "@chakra-ui/react";
+import { Center, Flex, Icon, SlideFade, Stack } from "@chakra-ui/react";
 import DeleteCertificationButton from "@/components/DeleteCertificationButton";
+import Image from "next/image";
+import Link from "next/link";
+import { BsLink45Deg } from "react-icons/bs";
 
 export default async function Page({
   params,
@@ -23,6 +26,7 @@ export default async function Page({
         name,
         description,
         exam_code,
+        url,
         badge_image_url,
         user_id,
         ratings ( id, comment, overall, easiness, usefulness, would_take_again, certification, user_id )`,
@@ -54,11 +58,32 @@ export default async function Page({
     <>
       {certification && (
         <SlideFade in={true} offsetY={"20px"}>
+          {certification.badge_image_url && (
+            <Center>
+              <Image
+                src={certification.badge_image_url}
+                alt=""
+                width={600}
+                height={600}
+                className="mt-2 aspect-square w-32 rounded-full"
+              />
+            </Center>
+          )}
           <H1
             preText={certification.name.split(" ").slice(0, -1).join(" ")}
             gradientText={certification.name.split(" ").slice(-1)}
           />
-
+          <Flex
+            justifyContent={"center"}
+            alignItems={"center"}
+            marginBottom={"2rem"}
+            gap={1}
+          >
+            <BsLink45Deg />
+            <Link href={certification.url} as='u'>
+              {certification.url}
+            </Link>
+          </Flex>
           <Flex
             marginBottom="3.5rem"
             flexDir="column"

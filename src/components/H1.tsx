@@ -17,7 +17,7 @@ export default function H1({ preText, gradientText, animate = false }: Props) {
           opacity: 1,
         }
       }
-      className="my-16 hyphens-auto break-words text-center text-5xl font-bold leading-tight md:text-6xl"
+      className="mb-16 mt-8 hyphens-auto break-words text-center text-5xl font-bold leading-tight md:text-6xl"
     >
       {preText + " "}
       <span className="bg-gradient-to-r from-primary from-10% to-secondary-accent bg-clip-text text-transparent">
