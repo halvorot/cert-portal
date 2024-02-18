@@ -5,7 +5,15 @@ import Markdown from "react-markdown";
 import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
-import { Center, Flex, Text, SlideFade, Stack } from "@chakra-ui/react";
+import {
+  Center,
+  Flex,
+  Text,
+  SlideFade,
+  Stack,
+  HStack,
+  Box,
+} from "@chakra-ui/react";
 import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 import Image from "next/image";
 import Link from "next/link";
@@ -72,21 +80,25 @@ export default async function Page({
             </Center>
           )}
           <H1
-            preText={certificationNameWordList.slice(0, certificationNameWordList.length/2).join(" ")}
-            gradientText={certificationNameWordList.slice(certificationNameWordList.length/2).join(" ")}
+            preText={certificationNameWordList
+              .slice(0, certificationNameWordList.length / 2)
+              .join(" ")}
+            gradientText={certificationNameWordList
+              .slice(certificationNameWordList.length / 2)
+              .join(" ")}
           />
-
-          <Link href={certification.url}>
-            <Flex
-              justifyContent={"center"}
-              alignItems={"center"}
-              marginBottom={"2rem"}
-              gap={1}
-            >
-              <BsLink45Deg color="#93c5fd"/>
-              <Text as="u" color={"#93c5fd"}>{certification.url}</Text>
-            </Flex>
-          </Link>
+          <Center marginBottom={"2rem"}>
+            <Link href={certification.url}>
+              <HStack alignItems={"center"} gap={1}>
+                <Box flexShrink={0}>
+                  <BsLink45Deg color="#93c5fd" size={"2rem"} />
+                </Box>
+                <Text as="u" color={"#93c5fd"}>
+                  {certification.url}
+                </Text>
+              </HStack>
+            </Link>
+          </Center>
           <Flex
             marginBottom="3.5rem"
             flexDir="column"
