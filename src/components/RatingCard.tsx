@@ -39,24 +39,22 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
 
   const handleDeleteRating = async (ratingId: number) => {
     const error = await deleteRating(ratingId);
-    error ? (
-      toast({
-        title: 'An error occurred',
-        description: "Could not delete rating. " + error,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-    ) : (
-      toast({
-        title: 'Rating deleted',
-        description: "The rating was deleted successfully.",
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      })
-    )
-  }
+    error
+      ? toast({
+          title: "An error occurred",
+          description: "Could not delete rating. " + error,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
+      : toast({
+          title: "Rating deleted",
+          description: "The rating was deleted successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+  };
 
   return (
     <Card>
@@ -101,7 +99,7 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
           >
             {rating.comment && (
               <div>
-                <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity}>
+                <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity} whiteSpace={"pre-wrap"}>
                   {rating.comment}
                 </Text>
                 <Text
@@ -120,7 +118,9 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
               <Flex justifyContent="end">
                 <Tooltip label="Delete rating" placement="auto" float="right">
                   <IconButton
-                    onClick={() => startTransition(() => handleDeleteRating(rating.id))}
+                    onClick={() =>
+                      startTransition(() => handleDeleteRating(rating.id))
+                    }
                     isLoading={isPending}
                     aria-label="Delete rating"
                     icon={<BsTrash3 />}

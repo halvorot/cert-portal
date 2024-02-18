@@ -1,6 +1,8 @@
 "use client";
+
 import { MAX_SCORE, MIN_SCORE } from "@/utils/constants";
 import React, { useEffect, useState, useTransition } from "react";
+import ResizeTextarea from "react-textarea-autosize";
 import { BsPlusCircle } from "react-icons/bs";
 import {
   Text,
@@ -168,6 +170,8 @@ export default function AddRatingModal({
                     <Textarea
                       name="comment"
                       placeholder="Write your comment about the certification..."
+                      minRows={6}
+                      as={ResizeTextarea}
                     />
                   </Stack>
                   <Checkbox name="would-take-again" defaultChecked size="lg">
