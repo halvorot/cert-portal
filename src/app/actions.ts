@@ -39,7 +39,10 @@ export default async function fetchCertifications({
         ratings ( id, would_take_again )
         `,
       )
-      .textSearch("name", search)
+      .textSearch("examcode_name_description", search, {
+        type: "websearch",
+        config: "english",
+      })
       .order("name", { ascending: true })
       .range(from, to);
   }
