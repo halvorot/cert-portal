@@ -4,7 +4,6 @@ import { createSupabaseClient } from "@/utils/supabase/server";
 import { Provider } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { escape } from "querystring";
 
 export async function signUpWithEmailAndPassword(
   email: string,
@@ -73,7 +72,7 @@ export async function sendResetPasswordLink(email: string) {
   const origin = headers().get("origin");
   const supabase = createSupabaseClient();
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/auth/resetpassword`,
   });
 
@@ -93,7 +92,7 @@ export async function sendResetPasswordLink(email: string) {
 
 export async function updateUser(newPassord: string) {
   const supabase = createSupabaseClient();
-  const { data, error } = await supabase.auth.updateUser({
+  const { error } = await supabase.auth.updateUser({
     password: newPassord,
   });
   if (error) {
