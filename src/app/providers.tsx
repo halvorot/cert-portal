@@ -4,10 +4,9 @@ import { CacheProvider } from "@chakra-ui/next-js";
 import {
   ChakraProvider,
   ColorModeScript,
-  Theme,
+  extendTheme,
   ThemeConfig,
 } from "@chakra-ui/react";
-import { extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
   base: "0em",
@@ -26,7 +25,9 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({ breakpoints, config });
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <CacheProvider>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />

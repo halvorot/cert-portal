@@ -1,5 +1,5 @@
 import H2 from "@/components/H2";
-import { Box, Flex, Skeleton } from "@chakra-ui/react";
+import { Flex, Skeleton } from "@chakra-ui/react";
 
 export default async function Loading() {
   return (
@@ -16,6 +16,7 @@ export default async function Loading() {
         <Skeleton width="100%" maxWidth="24rem" height="5rem" />
         <Skeleton width="6rem" height="5rem" />
       </Flex>
+
       <Skeleton>
         <H2 text="Ratings" />
       </Skeleton>

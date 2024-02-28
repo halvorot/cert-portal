@@ -5,7 +5,7 @@ import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 export default async function ForgotPassword({
   searchParams,
 }: {
-  searchParams: { email: string };
+  searchParams: Readonly<{ email: string }>;
 }) {
   const { data } = await readUserSession();
   const email = searchParams?.email;
@@ -13,7 +13,9 @@ export default async function ForgotPassword({
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        <ForgotPasswordForm preFilledEmail={email ?? data.session?.user.email} />
+        <ForgotPasswordForm
+          preFilledEmail={email ?? data.session?.user.email}
+        />
       </SlideFade>
     </Flex>
   );
