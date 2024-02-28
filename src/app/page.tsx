@@ -10,7 +10,7 @@ import AddCertificationModal from "@/components/AddCertificationModal";
 export default async function Index({
   searchParams,
 }: {
-  searchParams?: { search: string };
+  searchParams?: Readonly<{ search: string }>;
 }) {
   const { data: certifications, error } = await fetchCertifications({
     search: searchParams?.search,
@@ -31,10 +31,7 @@ export default async function Index({
               <p>{error.details}</p>
             </>
           ) : (
-            <Suspense
-              key={Math.random()}
-              fallback="Loading certifications..."
-            >
+            <Suspense key={Math.random()} fallback="Loading certifications...">
               <InfiniteScrollCertifications
                 initialCertifications={certifications ?? []}
                 search={searchParams?.search}

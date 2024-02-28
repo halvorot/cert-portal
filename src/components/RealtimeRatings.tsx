@@ -81,7 +81,6 @@ export default function RealtimeRatings({
 
   return ratings.length > 0 ? (
     <motion.ul
-      role="list"
       className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
       variants={container} initial="hidden" animate="visible"
     >

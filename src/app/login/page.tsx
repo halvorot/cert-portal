@@ -6,7 +6,7 @@ import { Flex, SlideFade } from "@chakra-ui/react";
 export default async function Login({
   searchParams,
 }: {
-  searchParams: { message: string, messageColor: string };
+  searchParams: Readonly<{ message: string; messageColor: string }>;
 }) {
   const { data } = await readUserSession();
 
@@ -17,7 +17,10 @@ export default async function Login({
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
       <SlideFade in={true} offsetY={"20px"}>
-        <LoginForm message={searchParams.message} messageColor={searchParams.messageColor} />
+        <LoginForm
+          message={searchParams.message}
+          messageColor={searchParams.messageColor}
+        />
       </SlideFade>
     </Flex>
   );

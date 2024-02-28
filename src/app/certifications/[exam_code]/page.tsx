@@ -6,13 +6,13 @@ import RatingsSummaryCard from "@/components/RatingsSummaryCard";
 import AddRatingModal from "@/components/AddRatingModal";
 import RealtimeRatings from "@/components/RealtimeRatings";
 import {
+  Box,
   Center,
   Flex,
-  Text,
+  HStack,
   SlideFade,
   Stack,
-  HStack,
-  Box,
+  Text,
 } from "@chakra-ui/react";
 import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 import Image from "next/image";
@@ -22,7 +22,7 @@ import { BsLink45Deg } from "react-icons/bs";
 export default async function Page({
   params,
 }: {
-  params: { exam_code: string };
+  params: Readonly<{ exam_code: string }>;
 }) {
   const { exam_code } = params;
   const supabase = createSupabaseClient();
@@ -88,7 +88,7 @@ export default async function Page({
               .join(" ")}
           />
           <Center marginBottom={"2rem"}>
-            <Link href={certification.url}>
+            <Link href={certification.url} target={"_blank"}>
               <HStack alignItems={"center"} gap={1}>
                 <Box flexShrink={0}>
                   <BsLink45Deg color="#93c5fd" size={"2rem"} />

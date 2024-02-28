@@ -6,6 +6,9 @@
     "start": "next start",
     "update-supabase-types": "npx supabase gen types typescript --project-id \"bpydvhufllpenvzgzbwx\" > src/utils/supabase/types.ts"
   },
+  "engines" : {
+    "node" : ">=18"
+  },
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
     "@chakra-ui/react": "2.8.2",

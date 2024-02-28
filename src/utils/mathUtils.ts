@@ -1,23 +1,19 @@
-import type { RatingType } from "./types";
-
 interface Rating {
   id: number;
   would_take_again: boolean;
 }
 
-export function getWouldTakeAgainPercentage(
-  ratings: Rating[],
-): number | null {
+export function getWouldTakeAgainPercentage(ratings: Rating[]): number | null {
   if (!ratings || ratings.length == 0) {
     return null;
   }
   const wouldTakeAgainList = ratings.map((rating) => rating.would_take_again);
 
-  const percentThatWouldTakeAgain =
-    (wouldTakeAgainList.filter((value) => value === true).length /
+  return (
+    (wouldTakeAgainList.filter((value) => value).length /
       wouldTakeAgainList.length) *
-    100;
-  return percentThatWouldTakeAgain;
+    100
+  );
 }
 
 export function getAverage(list: number[]): number {

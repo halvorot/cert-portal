@@ -1,7 +1,6 @@
 "use server";
 
 import { createSupabaseClient } from "@/utils/supabase/server";
-import { PostgrestError, PostgrestSingleResponse } from "@supabase/supabase-js";
 
 interface Certification {
   id: number;
@@ -21,7 +20,7 @@ export default async function fetchCertifications({
   search,
 }: {
   page?: number;
-  search?: string | undefined;
+  search?: string;
 }) {
   const ITEMS_PER_PAGE = 20;
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
