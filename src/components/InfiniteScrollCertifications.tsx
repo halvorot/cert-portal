@@ -25,7 +25,7 @@ interface Rating {
 const container = {
   visible: {
     transition: {
-      staggerChildren: 0.075,
+      staggerChildren: 0.04,
     },
   },
 };
