@@ -5,6 +5,7 @@
 .markdown {
   margin-bottom: 5rem;
 }
+
 .markdown h1 {
   margin-bottom: 1.75rem;
   margin-top: 2.25rem;
@@ -22,6 +23,12 @@
 
 .markdown p {
   margin-bottom: 1.25rem;
+}
+
+.markdown a {
+  color: #93c5fd;
+  text-decoration: underline;
+  font-weight: 500;
 }
 
 .markdown ul {

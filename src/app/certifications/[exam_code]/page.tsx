@@ -75,7 +75,7 @@ export default async function Page({
                 alt=""
                 width={600}
                 height={600}
-                className="mt-2 aspect-square w-32 rounded-full"
+                className="mt-2 object-cover aspect-square w-32 rounded-full"
               />
             </Center>
           )}
