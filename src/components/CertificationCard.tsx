@@ -37,7 +37,7 @@ export default function CertificationCard({
               alt=""
               width={600}
               height={600}
-              className="mr-2 aspect-square w-20 rounded-full"
+              className="mr-2 object-cover aspect-square w-20 rounded-full"
             />
           )}
           <div className="text-left">
