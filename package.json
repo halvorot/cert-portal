@@ -13,7 +13,7 @@
     "@chakra-ui/next-js": "2.2.0",
     "@chakra-ui/react": "2.8.2",
     "@emotion/react": "11.11.4",
-    "@emotion/styled": "11.11.0",
+    "@emotion/styled": "11.11.5",
     "@supabase/ssr": "0.1.0",
     "@supabase/supabase-js": "2.41.1",
     "autoprefixer": "10.4.19",
