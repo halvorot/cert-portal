@@ -5,7 +5,10 @@ import React, { useEffect, useState, useTransition } from "react";
 import ResizeTextarea from "react-textarea-autosize";
 import { BsPlusCircle } from "react-icons/bs";
 import {
-  Text,
+  Button,
+  Checkbox,
+  FormControl,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -17,25 +20,22 @@ import {
   SliderThumb,
   SliderTrack,
   Stack,
-  useDisclosure,
+  Text,
   Textarea,
-  Checkbox,
-  Button,
-  FormControl,
-  FormLabel,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
-import { Rating, addRating } from "@/utils/databaseUtils";
+import { addRating, Rating } from "@/utils/databaseUtils";
 
 export default function AddRatingModal({
   certificationId,
   withIcon = true,
-}: {
+}: Readonly<{
   certificationId: number;
   withIcon?: boolean;
-}) {
+}>) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<User | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
@@ -112,9 +112,7 @@ export default function AddRatingModal({
               >
                 <Stack spacing="1rem">
                   <FormControl>
-                    <FormLabel>
-                      Overall score ({MIN_SCORE}-{MAX_SCORE})
-                    </FormLabel>
+                    <FormLabel>Overall score</FormLabel>
                     <Slider
                       name="overall"
                       aria-label="Overall score"
@@ -130,9 +128,7 @@ export default function AddRatingModal({
                     </Slider>
                   </FormControl>
                   <FormControl>
-                    <FormLabel>
-                      Easiness ({MIN_SCORE}-{MAX_SCORE})
-                    </FormLabel>
+                    <FormLabel>Easiness</FormLabel>
                     <Slider
                       name="easiness"
                       aria-label="Easiness"
@@ -148,9 +144,7 @@ export default function AddRatingModal({
                     </Slider>
                   </FormControl>
                   <FormControl>
-                    <FormLabel>
-                      Usefulness ({MIN_SCORE}-{MAX_SCORE})
-                    </FormLabel>
+                    <FormLabel>Usefulness</FormLabel>
                     <Slider
                       name="usefulness"
                       aria-label="Usefulness"
