@@ -12,15 +12,16 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useRef, useTransition } from "react";
 import { BsTrash3 } from "react-icons/bs";
 
 export default function DeleteCertificationButton({
   certification_id,
-}: {
+}: Readonly<{
   certification_id: number;
-}) {
+}>) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isPending, startTransition] = useTransition();
   const cancelRef = useRef(null);
   const toast = useToast();
 
@@ -78,9 +79,14 @@ export default function DeleteCertificationButton({
               </Button>
               <Button
                 colorScheme="red"
-                onClick={() => handleDeleteCertification(certification_id)}
+                onClick={() =>
+                  startTransition(() =>
+                    handleDeleteCertification(certification_id),
+                  )
+                }
                 ml={3}
                 textColor="red"
+                isLoading={isPending}
               >
                 Delete
               </Button>
