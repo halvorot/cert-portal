@@ -15,7 +15,7 @@
     "@emotion/react": "11.13.0",
     "@emotion/styled": "11.13.0",
     "@supabase/ssr": "0.4.0",
-    "@supabase/supabase-js": "2.44.4",
+    "@supabase/supabase-js": "2.45.0",
     "autoprefixer": "10.4.19",
     "framer-motion": "11.3.19",
     "next": "14.2.5",
