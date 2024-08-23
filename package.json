@@ -17,7 +17,7 @@
     "@supabase/ssr": "0.5.0",
     "@supabase/supabase-js": "2.45.2",
     "autoprefixer": "10.4.20",
-    "framer-motion": "11.3.29",
+    "framer-motion": "11.3.30",
     "next": "14.2.6",
     "postcss": "8.4.41",
     "react": "18.3.1",
