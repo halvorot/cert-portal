@@ -6,7 +6,6 @@ import { Center, SimpleGrid, Spinner, Stack } from "@chakra-ui/react";
 import { useInView } from "react-intersection-observer";
 import fetchCertifications from "@/app/actions";
 import { motion } from "framer-motion";
-import { PostgrestError } from "@supabase/supabase-js";
 import H2 from "./H2";
 
 interface Certification {
@@ -48,7 +47,7 @@ export default function InfiniteScrollCertifications({
   const [certifications, setCertifications] = useState<Certification[]>(
     initialCertifications,
   );
-  const [error, setError] = useState<PostgrestError | null>(null);
+  const [isError, setIsError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [ref, inView] = useInView();
   const [isPending, startTransition] = useTransition();
@@ -62,7 +61,8 @@ export default function InfiniteScrollCertifications({
           search,
         });
         if (error) {
-          setError(error);
+          console.log("Error occurred when fetching certifications. ", error);
+          setIsError(true);
           return;
         }
         if (data && data.length > 0) {
@@ -96,11 +96,11 @@ export default function InfiniteScrollCertifications({
           <H2 text="No certifications found" />
         </div>
       )}
-      {error && (
-        <>
-          <p>{error.message}</p>
-          <p>{error.details}</p>
-        </>
+      {isError && (
+        <p>
+          Something went wrong when fetching certifications... Please try again
+          later
+        </p>
       )}
 
       <Center ref={ref}>
