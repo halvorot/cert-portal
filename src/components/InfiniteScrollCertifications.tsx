@@ -41,10 +41,10 @@ const item = {
 export default function InfiniteScrollCertifications({
   search,
   initialCertifications,
-}: {
+}: Readonly<{
   search: string | undefined;
   initialCertifications: Certification[];
-}) {
+}>) {
   const [certifications, setCertifications] = useState<Certification[]>(
     initialCertifications,
   );
