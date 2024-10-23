@@ -5,7 +5,7 @@ import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 export default async function ForgotPassword({
   searchParams,
 }: {
-  searchParams: Readonly<{ email: string }>;
+  searchParams: { email: string };
 }) {
   const { data } = await readUserSession();
   const email = searchParams?.email;
