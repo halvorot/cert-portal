@@ -38,6 +38,6 @@
     "@types/react-modal": "3.16.3",
     "encoding": "0.1.13",
     "prettier": "3.4.2",
-    "prettier-plugin-tailwindcss": "0.6.9"
+    "prettier-plugin-tailwindcss": "0.6.10"
   }
 }
