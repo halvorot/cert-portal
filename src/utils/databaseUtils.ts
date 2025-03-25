@@ -1,8 +1,8 @@
 "use server";
 
-import { createSupabaseClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { supabase } from "@/utils/supabase/client";
 
 export interface Certification {
   name: string;
@@ -24,7 +24,6 @@ export interface Rating {
 }
 
 export async function deleteRating(idToDelete: number) {
-  const supabase = createSupabaseClient();
   const { error } = await supabase
     .from("ratings")
     .delete()
@@ -36,8 +35,6 @@ export async function deleteRating(idToDelete: number) {
 }
 
 export async function addRating(rating: Rating) {
-  const supabase = createSupabaseClient();
-
   const existingRatingsForUserForCert = await supabase
     .from("ratings")
     .select()
@@ -60,8 +57,6 @@ export async function addRating(rating: Rating) {
 }
 
 export async function addCertification(certification: Certification) {
-  const supabase = createSupabaseClient();
-
   if (certification.name.trim().length === 0) {
     return "Name cannot be empty.";
   }
@@ -95,7 +90,6 @@ export async function addCertification(certification: Certification) {
 }
 
 export async function deleteCertification(idToDelete: number) {
-  const supabase = createSupabaseClient();
   const certification = await supabase
     .from("certifications")
     .select(

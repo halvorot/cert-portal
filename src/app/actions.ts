@@ -1,6 +1,6 @@
 "use server";
 
-import { createSupabaseClient } from "@/utils/supabase/server";
+import { supabase } from "@/utils/supabase/client";
 
 interface Certification {
   id: number;
@@ -24,10 +24,9 @@ export default async function fetchCertifications({
 }) {
   const ITEMS_PER_PAGE = 20;
   const { from, to } = getRange(page, ITEMS_PER_PAGE);
-  const supabase = createSupabaseClient();
 
   if (search && search.length > 0) {
-    return await supabase
+    return supabase
       .from("certifications")
       .select(
         `
@@ -45,7 +44,7 @@ export default async function fetchCertifications({
       .order("name", { ascending: true })
       .range(from, to);
   }
-  return await supabase
+  return supabase
     .from("certifications")
     .select(
       `

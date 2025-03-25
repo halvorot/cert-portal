@@ -16,17 +16,15 @@ import {
   useBoolean,
   useToast,
 } from "@chakra-ui/react";
-import { createSupabaseClient } from "@/utils/supabase/client";
 import { useLayoutEffect, useState, useTransition } from "react";
 import { deleteRating } from "@/utils/databaseUtils";
+import { supabase } from "@/utils/supabase/client";
 
 export default function RatingCard({ rating }: { rating: RatingType }) {
   const [isExpanded, setIsExpanded] = useBoolean();
   const [userId, setUserId] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
   const toast = useToast();
-
-  const supabase = createSupabaseClient();
 
   useLayoutEffect(() => {
     const getUserFromSupabase = async () => {
@@ -99,7 +97,11 @@ export default function RatingCard({ rating }: { rating: RatingType }) {
           >
             {rating.comment && (
               <div>
-                <Text fontSize="sm" noOfLines={!isExpanded ? 3 : Infinity} whiteSpace={"pre-wrap"}>
+                <Text
+                  fontSize="sm"
+                  noOfLines={!isExpanded ? 3 : Infinity}
+                  whiteSpace={"pre-wrap"}
+                >
                   {rating.comment}
                 </Text>
                 <Text

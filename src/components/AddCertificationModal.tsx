@@ -3,33 +3,30 @@ import React, { useEffect, useState, useTransition } from "react";
 import ResizeTextarea from "react-textarea-autosize";
 import { BsPlusCircle } from "react-icons/bs";
 import {
-  Text,
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Stack,
-  useDisclosure,
-  Textarea,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
   SlideFade,
-  Center,
+  Stack,
+  Text,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
-import {
-  Certification,
-  addCertification,
-} from "@/utils/databaseUtils";
+import { addCertification, Certification } from "@/utils/databaseUtils";
 import slugify from "slugify";
 import { CERTIFICATION_BADGES_BUCKET_URL } from "@/utils/constants";
-import { createSupabaseClient } from "@/utils/supabase/client";
+import { supabase } from "@/utils/supabase/client";
 
 export default function AddCertificationModal({
   withIcon = true,
@@ -72,7 +69,6 @@ export default function AddCertificationModal({
 
     if ((formData.get("badge_image") as File).size > 0) {
       const filePath = user.id + "/badge-" + slugify(certification.name);
-      const supabase = createSupabaseClient();
       const { data, error } = await supabase.storage
         .from("certification-badges")
         .upload(filePath, formData.get("badge_image") as File);
@@ -81,7 +77,8 @@ export default function AddCertificationModal({
         setErrorMessage(error.message);
         return;
       }
-      certification.badge_image_url = CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
+      certification.badge_image_url =
+        CERTIFICATION_BADGES_BUCKET_URL + "/" + data.path;
     }
 
     const errorMessage = await addCertification(certification);

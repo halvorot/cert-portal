@@ -2,11 +2,11 @@
 import { RatingType } from "@/utils/types";
 import React, { useEffect, useState } from "react";
 import RatingCard from "./RatingCard";
-import { createSupabaseClient } from "@/utils/supabase/client";
-import { Card, CardBody, Stack, Center, Icon, Text } from "@chakra-ui/react";
+import { Card, CardBody, Center, Icon, Stack, Text } from "@chakra-ui/react";
 import { BsEmojiFrown } from "react-icons/bs";
 import AddRatingModal from "./AddRatingModal";
 import { motion } from "framer-motion";
+import { supabase } from "@/utils/supabase/client";
 
 const container = {
   visible: {
@@ -32,7 +32,6 @@ export default function RealtimeRatings({
   certificationId: number;
 }) {
   const [ratings, setRatings] = useState(serverRatings);
-  const supabase = createSupabaseClient();
 
   useEffect(() => {
     setRatings(serverRatings);
@@ -82,7 +81,9 @@ export default function RealtimeRatings({
   return ratings.length > 0 ? (
     <motion.ul
       className="grid grid-flow-row gap-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-      variants={container} initial="hidden" animate="visible"
+      variants={container}
+      initial="hidden"
+      animate="visible"
     >
       {ratings.map((rating) => (
         <motion.li key={rating.id} variants={item}>

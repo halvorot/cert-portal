@@ -1,4 +1,3 @@
-import { createSupabaseClient } from "@/utils/supabase/server";
 import H1 from "@/components/H1";
 import H2 from "@/components/H2";
 import Markdown from "react-markdown";
@@ -18,6 +17,7 @@ import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 import Image from "next/image";
 import Link from "next/link";
 import { BsLink45Deg } from "react-icons/bs";
+import { supabase } from "@/utils/supabase/client";
 
 export default async function Page({
   params,
@@ -25,7 +25,6 @@ export default async function Page({
   params: Readonly<{ exam_code: string }>;
 }) {
   const { exam_code } = params;
-  const supabase = createSupabaseClient();
   const { data: certification, error } = await supabase
     .from("certifications")
     .select(
@@ -75,7 +74,7 @@ export default async function Page({
                 alt=""
                 width={600}
                 height={600}
-                className="mt-2 object-cover aspect-square w-32 rounded-full"
+                className="mt-2 aspect-square w-32 rounded-full object-cover"
               />
             </Center>
           )}

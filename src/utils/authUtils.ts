@@ -1,16 +1,15 @@
 "use server";
 
-import { createSupabaseClient } from "@/utils/supabase/server";
 import { Provider } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { supabase } from "@/utils/supabase/client";
 
 export async function signUpWithEmailAndPassword(
   email: string,
   password: string,
 ) {
   const origin = headers().get("origin");
-  const supabase = createSupabaseClient();
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -37,8 +36,6 @@ export async function signInWithEmailAndPassword(
   email: string,
   password: string,
 ) {
-  const supabase = createSupabaseClient();
-
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -51,7 +48,6 @@ export async function signInWithEmailAndPassword(
 
 export async function signInWithProvider(provider: Provider) {
   const origin = headers().get("origin");
-  const supabase = createSupabaseClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
@@ -70,7 +66,6 @@ export async function signInWithProvider(provider: Provider) {
 
 export async function sendResetPasswordLink(email: string) {
   const origin = headers().get("origin");
-  const supabase = createSupabaseClient();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/auth/resetpassword`,
@@ -91,7 +86,6 @@ export async function sendResetPasswordLink(email: string) {
 }
 
 export async function updateUser(newPassord: string) {
-  const supabase = createSupabaseClient();
   const { error } = await supabase.auth.updateUser({
     password: newPassord,
   });
@@ -104,14 +98,11 @@ export async function updateUser(newPassord: string) {
 }
 
 export async function signOut() {
-  const supabase = createSupabaseClient();
-
   await supabase.auth.signOut();
 
   redirect("/");
 }
 
 export async function readUserSession() {
-  const supabase = createSupabaseClient();
   return supabase.auth.getSession();
 }
