@@ -42,7 +42,7 @@ RUN adduser --system --uid 1001 nextjs
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-RUN chmod -R 555 ./standalone  # Read & execute only, no write at all
+RUN chmod -R 555 /app/.next/standalone  # Read & execute only, no write at all
 
 USER nextjs
 
