@@ -14,13 +14,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  SlideFade,
   Stack,
   Text,
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/next-js";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
 import { addCertification, Certification } from "@/utils/databaseUtils";
@@ -92,8 +92,12 @@ export default function AddCertificationModal({
   };
 
   return (
-    <SlideFade in={true} offsetY={"20px"}>
-      <Center marginBottom="2rem">
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      style={{ marginBottom: "2rem" }}
+    >
+      <Center>
         <button
           onClick={onOpen}
           className="flex flex-col items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-light hover:bg-primary-accent"
@@ -180,6 +184,6 @@ export default function AddCertificationModal({
           </ModalContent>
         </Modal>
       </Center>
-    </SlideFade>
+    </motion.div>
   );
 }

@@ -5,13 +5,13 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  SlideFade,
   Tooltip,
   Text,
   Stack,
   ListItem,
   UnorderedList,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { BsInfoCircle, BsSearch } from "react-icons/bs";
 import { useDebouncedCallback } from "use-debounce";
@@ -52,7 +52,10 @@ export default function CertificationSearch() {
   );
 
   return (
-    <SlideFade in={true} offsetY={"20px"}>
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+    >
       <Center>
         <InputGroup maxWidth="30rem" marginBottom={10}>
           <InputLeftElement pointerEvents="none">
@@ -78,6 +81,6 @@ export default function CertificationSearch() {
           </InputRightElement>
         </InputGroup>
       </Center>
-    </SlideFade>
+    </motion.div>
   );
 }

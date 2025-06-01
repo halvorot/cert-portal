@@ -1,5 +1,6 @@
 import { readUserSession } from "@/utils/authUtils";
-import { Flex, SlideFade } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 
 export default async function ForgotPassword({
@@ -12,11 +13,14 @@ export default async function ForgotPassword({
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
-      <SlideFade in={true} offsetY={"20px"}>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+      >
         <ForgotPasswordForm
           preFilledEmail={email ?? data.session?.user.email}
         />
-      </SlideFade>
+      </motion.div>
     </Flex>
   );
 }
