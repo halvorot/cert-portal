@@ -1,7 +1,8 @@
 import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import ResetPasswordForm from "@/components/ResetPasswordForm";
-import { Flex, SlideFade } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 export default async function ResetPassword() {
   const { data } = await readUserSession();
@@ -14,9 +15,12 @@ export default async function ResetPassword() {
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
-      <SlideFade in={true} offsetY={"20px"}>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+      >
         <ResetPasswordForm email={data.session.user.email ?? "UNKNOWN"} />
-      </SlideFade>
+      </motion.div>
     </Flex>
   );
 }

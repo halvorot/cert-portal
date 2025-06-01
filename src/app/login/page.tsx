@@ -1,7 +1,8 @@
 import { readUserSession } from "@/utils/authUtils";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
-import { Flex, SlideFade } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 export default async function Login({
   searchParams,
@@ -16,12 +17,15 @@ export default async function Login({
 
   return (
     <Flex width="100%" alignItems="center" justifyContent="center">
-      <SlideFade in={true} offsetY={"20px"}>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+      >
         <LoginForm
           message={searchParams.message}
           messageColor={searchParams.messageColor}
         />
-      </SlideFade>
+      </motion.div>
     </Flex>
   );
 }
