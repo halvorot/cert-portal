@@ -114,9 +114,11 @@ export default async function Page({
           {certification.description && (
             <>
               <H2 text="Description" />
-              <Markdown className="markdown">
-                {certification.description}
-              </Markdown>
+              <div className="markdown">
+                <Markdown>
+                  {certification.description}
+                </Markdown>
+              </div>
             </>
           )}
 
