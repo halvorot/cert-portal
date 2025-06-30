@@ -24,7 +24,7 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/next-js";
+import Link from "next/link";
 import { readUserSession } from "@/utils/authUtils";
 import { User } from "@supabase/supabase-js";
 import { addRating, Rating } from "@/utils/databaseUtils";
