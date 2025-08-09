@@ -9,10 +9,10 @@ import {
   Center,
   Flex,
   HStack,
-  SlideFade,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import DeleteCertificationButton from "@/components/DeleteCertificationButton";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,7 +66,10 @@ export default async function Page({
   return (
     <>
       {certification && (
-        <SlideFade in={true} offsetY={"20px"}>
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
           {certification.badge_image_url && (
             <Center>
               <Image
@@ -127,7 +130,7 @@ export default async function Page({
             serverRatings={certification.ratings}
             certificationId={certification.id}
           />
-        </SlideFade>
+        </motion.div>
       )}
     </>
   );
